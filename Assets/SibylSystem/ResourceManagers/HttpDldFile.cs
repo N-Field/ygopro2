@@ -34,7 +34,7 @@ public class HttpDldFile
                 }
                 if (Path.GetExtension(filename).Contains("cdb"))
                 {
-                    client.Timeout = 5000;
+                    client.Timeout = 30000;
                 }
                 if (Path.GetExtension(filename).Contains("conf"))
                 {

@@ -522,10 +522,20 @@ public class Program : MonoBehaviour
             if(File.Exists("cdb/strings.conf"))
                 File.Delete("cdb/strings.conf");*/
 
-            HttpDldFile httpDldFile = new HttpDldFile();
-            httpDldFile.Download("http://koishi.222diy.gdn/ygopro/cards.cdb", "cdb/cards.cdb");
-            httpDldFile.Download("http://koishi.222diy.gdn/ygopro/lflist.conf", "cdb/lflist.conf");
-            httpDldFile.Download("http://koishi.222diy.gdn/ygopro/strings.conf", "cdb/strings.conf");
+            (new Thread(() => {
+                try
+                {
+                    HttpDldFile httpDldFile = new HttpDldFile();
+                    httpDldFile.Download("http://koishi.222diy.gdn/ygopro/cards.cdb", "cdb/cards.cdb");
+                    httpDldFile.Download("http://koishi.222diy.gdn/ygopro/lflist.conf", "cdb/lflist.conf");
+                    httpDldFile.Download("http://koishi.222diy.gdn/ygopro/strings.conf", "cdb/strings.conf");
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log("UPDATE ERROR: " + ex.ToString());
+                }
+            })).Start();
+
         }
         catch (Exception e)
         {
