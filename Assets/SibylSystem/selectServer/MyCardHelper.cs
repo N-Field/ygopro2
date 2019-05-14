@@ -52,7 +52,12 @@ public class MatchObject : JSONObject {
 public class MyCardHelper {
 	string username = null;
 	int userid = -1;
+	X509Certificate Cert;
 
+	public MyCardHelper() { 
+		byte[] cert_buffer = Encoding.UTF8.GetBytes(mycard_cert);
+		Cert = new X509Certificate("cert/mycard.cer");
+	}
 	public bool login(string name, string password, out string fail_reason) {
 		try { 
 			LoginRequest data = new LoginRequest(name, password);
@@ -61,6 +66,7 @@ public class MyCardHelper {
 			request.Method = "POST";
 			request.ContentType = "application/json";
 			request.ContentLength = Encoding.UTF8.GetByteCount(data_str);
+			request.ClientCertificates.Add(Cert);
 			Stream request_stream = request.GetRequestStream();
 			StreamWriter stream_writer = new StreamWriter(request_stream, Encoding.UTF8);
 			stream_writer.Write(data_str);
@@ -104,6 +110,7 @@ public class MyCardHelper {
 			request.Method = "POST";
 			request.ContentType = "application/x-www-form-urlencoded";
 			request.Headers.Add("Authorization", auth_str);
+			request.ClientCertificates.Add(Cert);
 
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 	
