@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 public class JSONObject { 
 	public string Stringify()
