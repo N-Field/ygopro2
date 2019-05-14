@@ -1,9 +1,9 @@
 using UnityEngine;
-using UnityEngine.Networking;
 using System;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 public class JSONObject { 
 	public string Stringify()
@@ -52,28 +52,34 @@ public class MatchObject : JSONObject {
 public class MyCardHelper {
 	string username = null;
 	int userid = -1;
+
 	public bool login(string name, string password, out string fail_reason) {
 		try { 
 			LoginRequest data = new LoginRequest(name, password);
 			string data_str = data.Stringify();
-			UnityWebRequest www = UnityWebRequest.Post("https://api.moecube.com/accounts/signin", data_str);
-			www.SetRequestHeader("Content-Type", "application/json");
-			www.SendWebRequest();
-			while (!www.isDone) { 
-				if (www.isNetworkError || www.isHttpError)
-				{
-					fail_reason = www.error;
-					return false;
-				}
-			}
-			if (www.responseCode >= 400)
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.moecube.com/accounts/signin");
+			request.Method = "POST";
+			request.ContentType = "application/json";
+			request.ContentLength = Encoding.UTF8.GetByteCount(data_str);
+			Stream request_stream = request.GetRequestStream();
+			StreamWriter stream_writer = new StreamWriter(request_stream, Encoding.UTF8);
+			stream_writer.Write(data_str);
+			stream_writer.Close();
+
+			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+	
+			if (response.StatusCode >= 400)
 			{ 
-				fail_reason = "Login failed";
+				fail_reason = response.StatusDescription;
 				return false;
 			}
 			else
 			{
-				string result = www.downloadHandler.text;
+				Stream response_stream = response.GetResponseStream();
+				StreamReader stream_reader = new StreamReader(response_stream, Encoding.UTF8);
+				string result = stream_reader.ReadToEnd();
+				stream_reader.Close();
+				response_stream.Close();
 				LoginObject result_object = JsonUtility.FromJson<LoginObject>(result);
 				username = result_object.user.username;
 				userid = result_object.user.id;
@@ -93,24 +99,25 @@ public class MyCardHelper {
 		}
 		try {
 			string auth_str = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + userid));
-			UnityWebRequest www = UnityWebRequest.Post("https://api.mycard.moe/ygopro/match?locale=zh-CN&arena=" + match_type, new WWWForm());
-			www.SetRequestHeader("Authorization", "Basic " + auth_str);
-			www.SendWebRequest();
-			while (!www.isDone) { 
-				if (www.isNetworkError || www.isHttpError)
-				{
-					fail_reason = www.error;
-					return null;
-				}
-			}
-			if (www.responseCode >= 400)
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.mycard.moe/ygopro/match?locale=zh-CN&arena=" + match_type);
+			request.Method = "POST";
+			request.ContentType = "application/x-www-form-urlencoded";
+			request.Headers.Add("Authorization", "Basic " + auth_str);
+
+			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+	
+			if (response.StatusCode >= 400)
 			{ 
-				fail_reason = "Match failed";
-				return null;
+				fail_reason = response.StatusDescription;
+				return false;
 			}
 			else
 			{
-				string result = www.downloadHandler.text;
+				Stream response_stream = response.GetResponseStream();
+				StreamReader stream_reader = new StreamReader(response_stream, Encoding.UTF8);
+				string result = stream_reader.ReadToEnd();
+				stream_reader.Close();
+				response_stream.Close();
 				MatchObject result_object = JsonUtility.FromJson<MatchObject>(result);
 				ret = result_object.password;
 			}
