@@ -88,6 +88,7 @@ public class MyCardHelper {
 			fail_reason = e.Message;
 			return false;
 		}
+		fail_reason = null;
 		return true;
 	}
 
@@ -125,6 +126,7 @@ public class MyCardHelper {
 			fail_reason = e.Message;
 			return null;
 		}
+		fail_reason = null;
 		return ret;
 	}
 }
