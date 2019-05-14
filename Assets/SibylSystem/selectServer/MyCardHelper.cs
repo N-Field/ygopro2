@@ -68,7 +68,7 @@ public class MyCardHelper {
 
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 	
-			if (response.StatusCode >= 400)
+			if (response.StatusCode != HttpStatusCode.OK)
 			{ 
 				fail_reason = response.StatusDescription;
 				return false;
@@ -98,18 +98,18 @@ public class MyCardHelper {
 			return null;
 		}
 		try {
-			string auth_str = Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + userid));
+			string auth_str = "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(username + ":" + userid));
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://api.mycard.moe/ygopro/match?locale=zh-CN&arena=" + match_type);
 			request.Method = "POST";
 			request.ContentType = "application/x-www-form-urlencoded";
-			request.Headers.Add("Authorization", "Basic " + auth_str);
+			request.Headers.Add("Authorization", auth_str);
 
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 	
-			if (response.StatusCode >= 400)
+			if (response.StatusCode != HttpStatusCode.OK)
 			{ 
 				fail_reason = response.StatusDescription;
-				return false;
+				return null;
 			}
 			else
 			{
