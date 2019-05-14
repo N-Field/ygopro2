@@ -56,7 +56,6 @@ public class MyCardHelper {
 	X509Certificate Cert;
 
 	public MyCardHelper() { 
-		byte[] cert_buffer = Encoding.UTF8.GetBytes(mycard_cert);
 		Cert = new X509Certificate("cert/mycard.cer");
 	}
 	public bool login(string name, string password, out string fail_reason) {
