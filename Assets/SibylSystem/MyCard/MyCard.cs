@@ -20,12 +20,12 @@ public class MyCard : WindowServantSP
     {
         createWindow(Program.I().new_ui_mycard);
         UIHelper.registEvent(gameObject, "exit_", onClickExit);
-        UIHelper.registEvent(gameObject, "joinAthletic", onJoinAthletic);
-        UIHelper.registEvent(gameObject, "joinEntertain", onJoinEntertain);
-        UIHelper.registEvent(gameObject, "database", onClickDatabase);
-        UIHelper.registEvent(gameObject, "community", onClickCommunity);
-        inputUsername = UIHelper.getByName<UIInput>(gameObject, "nameLine");
-        inputPsw = UIHelper.getByName<UIInput>(gameObject, "pswLine");
+        UIHelper.registEvent(gameObject, "joinAthletic_", onJoinAthletic);
+        UIHelper.registEvent(gameObject, "joinEntertain_", onJoinEntertain);
+        UIHelper.registEvent(gameObject, "database_", onClickDatabase);
+        UIHelper.registEvent(gameObject, "community_", onClickCommunity);
+        inputUsername = UIHelper.getByName<UIInput>(gameObject, "name_");
+        inputPsw = UIHelper.getByName<UIInput>(gameObject, "psw_");
         helper = new MyCardHelper();
         loadUser();
         SetActiveFalse();

@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 111230526307789670}
   - component: {fileID: 114313769570919500}
   m_Layer: 18
-  m_Name: join_
+  m_Name: community_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 111046841262845354}
   - component: {fileID: 114794816589274698}
   m_Layer: 18
-  m_Name: join_
+  m_Name: database_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 111220620961711622}
   - component: {fileID: 114415632317491532}
   m_Layer: 18
-  m_Name: join_
+  m_Name: joinEntertain_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 111342618786131120}
   - component: {fileID: 114847495729766850}
   m_Layer: 18
-  m_Name: join_
+  m_Name: joinAthletic_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
