@@ -20,8 +20,8 @@ public class MyCard : WindowServantSP
     {
         createWindow(Program.I().new_ui_mycard);
         UIHelper.registEvent(gameObject, "exit_", onClickExit);
-        UIHelper.registEvent(gameObject, "joinAthletic_", onJoinAthletic);
-        UIHelper.registEvent(gameObject, "joinEntertain_", onJoinEntertain);
+        UIHelper.registEvent(gameObject, "joinAthletic_", onClickJoinAthletic);
+        UIHelper.registEvent(gameObject, "joinEntertain_", onClickJoinEntertain);
         UIHelper.registEvent(gameObject, "database_", onClickDatabase);
         UIHelper.registEvent(gameObject, "community_", onClickCommunity);
         inputUsername = UIHelper.getByName<UIInput>(gameObject, "name_");
@@ -127,11 +127,11 @@ public class MyCard : WindowServantSP
         });
     }
 
-    void onJoinAthletic() {
+    void onClickJoinAthletic() {
         startMatch("athletic");
     }
 
-    void onJoinEntertain() { 
+    void onClickJoinEntertain() { 
         startMatch("entertain");
     }
 }
