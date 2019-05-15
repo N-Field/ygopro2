@@ -34,7 +34,8 @@ public class MyCard : WindowServantSP
     void saveUser() {
         Config.Set("mycard_username", inputUsername.value);
         Config.Set("mycard_password", inputPsw.value);
-    }
+		Program.I().selectServer.name = inputUsername.value;
+	}
 
     void loadUser() {
         inputUsername.value = Config.Get("mycard_username", "MyCard");
