@@ -125,7 +125,8 @@ public class MyCard : WindowServantSP
         {
             matchThread(username, password, match_type);
         });
-    }
+		requestThread.Start();
+	}
 
     void onClickJoinAthletic() {
         startMatch("athletic");
