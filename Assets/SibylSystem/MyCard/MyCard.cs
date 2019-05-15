@@ -67,7 +67,7 @@ public class MyCard : WindowServantSP
     }
 
     void onClickDatabase() { 
-        Application.OpenURL("https://mycard.moe/ygopro/arena");
+        Application.OpenURL("https://mycard.moe/ygopro/arena/");
     }
 
     void onClickCommunity() { 
