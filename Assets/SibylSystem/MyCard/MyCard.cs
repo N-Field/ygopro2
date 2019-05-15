@@ -67,11 +67,11 @@ public class MyCard : WindowServantSP
     }
 
     void onClickDatabase() { 
-        Application.OpenURL("https://ygobbs.com/");
+        Application.OpenURL("https://mycard.moe/ygopro/arena");
     }
 
     void onClickCommunity() { 
-        Application.OpenURL("https://mycard.moe/ygopro/arena");
+        Application.OpenURL("https://ygobbs.com/");
     }
 
     void matchThread(string username, string password, string match_type) {
