@@ -34,8 +34,8 @@ public class MyCard : WindowServantSP
     void saveUser() {
         Config.Set("mycard_username", inputUsername.value);
         Config.Set("mycard_password", inputPsw.value);
-		Program.I().selectServer.name = inputUsername.value;
-	}
+        Program.I().selectServer.name = inputUsername.value;
+    }
 
     void loadUser() {
         inputUsername.value = Config.Get("mycard_username", "MyCard");
@@ -114,11 +114,11 @@ public class MyCard : WindowServantSP
             RMSshow_onlyYes("", InterString.Get("用户名或密码为空。"), null);
             return;
         }
-		if (isRequesting) 
+        if (isRequesting) 
         {
-			terminateThread();
-		}
-		saveUser();
+            terminateThread();
+        }
+        saveUser();
         isRequesting = true;
         Program.PrintToChat(InterString.Get("已开始匹配。"));
         requestThread = new Thread(() =>
