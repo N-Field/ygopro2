@@ -3,6 +3,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Web;
 
 [Serializable]
 public class LoginUserObject {
@@ -103,4 +104,36 @@ public class MyCardHelper {
 		fail_reason = null;
 		return ret;
 	}
+
+	public static void DownloadFace(string name) {
+		try { 
+			WWW www = new WWW("https://api.moecube.com/accounts/users/"+HttpUtility.UrlEncode(name)+".avatar");
+			while (!www.isDone) { 
+				if (Application.internetReachability == NetworkReachability.NotReachable || !string.IsNullOrEmpty(www.error))
+				{
+					return;
+				}
+			}
+			string result = www.text;
+			if(result == "{\"message\":\"Not Found\"}")
+				return;
+			DownloadFaceFromUrl(name, result);
+		} catch (Exception e) { 
+			return;
+		}
+
+	}
+
+	private static void DownloadFaceFromUrl(string nameFace, string url)
+    {
+        string face = "textures/face/" + nameFace + ".png";
+        HttpDldFile df = new HttpDldFile();
+        df.Download(url, face);
+        if (File.Exists(face))
+        {
+            Texture2D Face = UIHelper.getTexture2D(face);
+            UIHelper.faces.Remove(nameFace);
+            UIHelper.faces.Add(nameFace, Face);
+        }
+    }
 }
