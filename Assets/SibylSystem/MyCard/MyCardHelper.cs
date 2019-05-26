@@ -107,7 +107,7 @@ public class MyCardHelper {
 
 	public static void DownloadFace(string name) {
 		try { 
-			WWW www = new WWW("https://api.moecube.com/accounts/users/"+HttpUtility.UrlEncode(name)+".avatar");
+			WWW www = new WWW("https://api.moecube.com/accounts/users/"+Web.HttpUtility.UrlEncode(name)+".avatar");
 			while (!www.isDone) { 
 				if (Application.internetReachability == NetworkReachability.NotReachable || !string.IsNullOrEmpty(www.error))
 				{
