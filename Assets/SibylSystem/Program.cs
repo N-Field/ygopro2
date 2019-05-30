@@ -338,7 +338,7 @@ public class Program : MonoBehaviour
 
 #elif UNITY_IPHONE //iPhone
         string GamePaths = Application.persistentDataPath + "/ygopro2/";
-        if (!File.Exists(GamePaths + "updates/version2.4.txt"))
+        if (!File.Exists(GamePaths + "updates/version2.5.txt"))
         {
             string filePath = Application.streamingAssetsPath + "/ygopro2-data.zip";
             ExtractZipFile(System.IO.File.ReadAllBytes(filePath), GamePaths);
@@ -1115,7 +1115,7 @@ public class Program : MonoBehaviour
 
         string FPS = m_FPS.ToString();
         try { FPS = FPS.Substring(0, 5); } catch{}
-        GUI.Label(new Rect(10, 5, 200, 200), "[Ver 1.034.9-C] " + "FPS: " + FPS);
+        GUI.Label(new Rect(10, 5, 200, 200), "[Ver 1.034.A-1] " + "FPS: " + FPS);
     }
 
     void Update()
