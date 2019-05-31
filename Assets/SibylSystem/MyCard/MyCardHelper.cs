@@ -1,3 +1,17 @@
+/*
+
+MyCard Helper for MyCard API
+
+Author: Nanahira (78877@qq.com)
+
+IMPORTANT: This module is for intracting with MyCard API for allowing players to have ranked matches in MyCard ranking system. Please contact MyCard before forking or redistributing the project with this module, or including this module in other projects.
+
+Please send emails to pokeboyexn@gmail.com for further information.
+
+
+*/
+
+
 using UnityEngine;
 using System;
 using System.Text;
