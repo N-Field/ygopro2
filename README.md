@@ -1,6 +1,14 @@
 # Download game
 
-https://github.com/Unicorn369/YGOPro2_Droid/releases
+http://koishi.222diy.gdn/download.html
+
+# Notes for MyCard Helper
+
+The official site of MyCard is https://mycard.moe/ .
+
+This project includes MyCard module `./Assets/SibylSystem/MyCard/MyCardHelper.cs` which allows players to play ranked matches in MyCard server intracting with MyCard API. However, it's highly recommended to contact MyCard before redistributing this project or including `./Assets/SibylSystem/MyCard/MyCardHelper.cs` in other projects.
+
+Please send emails to pokeboyexn@gmail.com for further information.
 
 # You have just found ygopro v2 in Unity 3D!
 
