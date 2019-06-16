@@ -1,6 +1,6 @@
 # Download game
 
-http://koishi.222diy.gdn/download.html
+https://koishi.pro/download.html
 
 # Notes for MyCard Helper
 

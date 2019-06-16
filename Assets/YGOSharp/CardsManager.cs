@@ -21,7 +21,7 @@ namespace YGOSharp
             if(!test) {
                 nullName = InterString.Get("未知卡片");
                 nullString = "";
-                nullString += "欢迎使用 KoishiPro2 iOS，本软件免责声明：[url=http://koishi.222diy.gdn/lab.html][u]http://koishi.222diy.gdn/lab.html[/u][/url]";
+                nullString += "欢迎使用 KoishiPro2 iOS，本软件免责声明：[url=https://koishi.pro/lab.html][u]https://koishi.pro/lab.html[/u][/url]";
                 nullString += "\r\n\r\n";
                 nullString += "KoishiPro2 iOS的用户QQ群627975038，游戏中遇到任何bug欢迎提交";
                 nullString += "\r\n\r\n";
