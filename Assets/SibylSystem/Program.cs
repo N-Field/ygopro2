@@ -338,7 +338,7 @@ public class Program : MonoBehaviour
 
 #elif UNITY_IPHONE //iPhone
         string GamePaths = Application.persistentDataPath + "/ygopro2/";
-        if (!File.Exists(GamePaths + "updates/version2.6.txt"))
+        if (!File.Exists(GamePaths + "updates/versionB-1.txt"))
         {
             string filePath = Application.streamingAssetsPath + "/ygopro2-data.zip";
             ExtractZipFile(System.IO.File.ReadAllBytes(filePath), GamePaths);
