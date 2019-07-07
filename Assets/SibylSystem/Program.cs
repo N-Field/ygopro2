@@ -1115,7 +1115,7 @@ public class Program : MonoBehaviour
 
         string FPS = m_FPS.ToString();
         try { FPS = FPS.Substring(0, 5); } catch{}
-        GUI.Label(new Rect(10, 5, 200, 200), "[Ver 1.034.A-2.2] " + "FPS: " + FPS);
+        GUI.Label(new Rect(10, 5, 200, 200), "[Ver 1.034.B-1] " + "FPS: " + FPS);
     }
 
     void Update()
