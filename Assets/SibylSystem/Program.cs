@@ -379,6 +379,10 @@ public class Program : MonoBehaviour
             {
                 string_ok = GameStringManager.initialize("strings.conf");
             }
+            if (File.Exists("expansions/lflist.conf")) // expansions lflist first
+            {
+                YGOSharp.BanlistManager.initialize("expansions/lflist.conf");
+            }
             if (!lflist_ok && File.Exists("cdb/lflist.conf"))
             {
                 lflist_ok = YGOSharp.BanlistManager.initialize("cdb/lflist.conf");
@@ -388,12 +392,8 @@ public class Program : MonoBehaviour
                 lflist_ok = YGOSharp.BanlistManager.initialize("lflist.conf");
             }
 
-            /* Expansions folder is not currently used, so not loading.
+            YGOSharp.BanlistManager.initializeComplete();
 
-            if (File.Exists("expansions/lflist.conf"))
-            {
-                YGOSharp.BanlistManager.initialize("expansions/lflist.conf");
-            }
             if (File.Exists("expansions/strings.conf"))
             {
                 GameStringManager.initialize("expansions/strings.conf");
@@ -413,7 +413,6 @@ public class Program : MonoBehaviour
                     }
                 }
             }
-             */
 
             if (Directory.Exists("pack"))
             {
@@ -953,8 +952,8 @@ public class Program : MonoBehaviour
     public DeckManager deckManager;
     public Ocgcore ocgcore;
     public SelectServer selectServer;
-	public MyCard mycard;
-	public RoomList roomList;
+    public MyCard mycard;
+    public RoomList roomList;
     public Book book;
     public puzzleMode puzzleMode;
     public AIRoom aiRoom;

@@ -45,15 +45,19 @@ namespace YGOSharp
                     UnityEngine.Debug.Log(e);
                 }
             }
-            current = new Banlist();
-            current.Name ="N/A";
-            new_list.Add(current);
             if(!test) {
-                Banlists = new_list;
+                foreach (var item in new_list) {
+                    Banlists.Add(item);
+                }
             }
             return (success && new_list.Count > 1);
         }
 
+        public static void initializeComplete() {
+            Banlist blank = new Banlist();
+            blank.Name = "N/A";
+            Banlists.Add(item);
+        }
         public static int GetIndex(uint hash)
         {
             for (int i = 0; i < Banlists.Count; i++)
