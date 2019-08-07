@@ -431,7 +431,7 @@ public class Program : MonoBehaviour
             }
 
             initializeALLservants();
-            //if(GameTextureManager.AutoPicDownload)
+            if(GameTextureManager.AutoPicDownload)
                 (new Thread(()=>{UpdateClient();})).Start();
             loadResources();
 
