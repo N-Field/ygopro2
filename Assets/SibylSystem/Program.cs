@@ -560,6 +560,7 @@ public class Program : MonoBehaviour
         }
         catch (Exception e)
         {
+            PrintToChat("UPDATE ERROR: " + e.ToString());
             Debug.Log("UPDATE ERROR: " + e.ToString());
         }
     }
