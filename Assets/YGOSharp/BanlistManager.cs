@@ -45,6 +45,7 @@ namespace YGOSharp
                     UnityEngine.Debug.Log(e);
                 }
             }
+            reader.Close();
             if(!test) {
                 if (Banlists == null) {
                     Banlists = new_list;
