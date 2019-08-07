@@ -50,11 +50,12 @@ public class SelectServer : WindowServantSP
         serversList.items.Add("[OCG]Koishi");
         serversList.items.Add("[OCG]Koishi备用节点");
         serversList.items.Add("[OCG]Mercury233");
+        serversList.items.Add("[OCG]23333 Pre");
         serversList.items.Add("[TCG]Koishi");
         serversList.items.Add("[轮抽服]2Pick");
         serversList.items.Add("[DL]高速决斗");
         serversList.items.Add("[GOAT]YGOPro Goat");
-        //serversList.items.Add("[DIY]YGOPro 222DIY");
+        serversList.items.Add("[DIY]YGOPro 222DIY");
         serversList.items.Add("[AI]Doom Bots of Doom");
         //serversList.items.Add("[OCG&TCG]한국서버");
         //serversList.items.Add("[OCG&TCG]YGOhollow (JP)");
@@ -98,6 +99,16 @@ public class SelectServer : WindowServantSP
                     UIHelper.getByName<UIInput>(gameObject, "ip_").value = "s1.ygo233.com";
                     UIHelper.getByName<UIInput>(gameObject, "port_").value = "233";
                     Config.Set("serversPicker", "[OCG]Mercury233");
+
+                    inputIP_.enabled = true;
+                    inputPort_.enabled = false;
+                    break;
+                }
+            case "[OCG]23333 Pre":
+                {
+                    UIHelper.getByName<UIInput>(gameObject, "ip_").value = "s1.ygo233.com";
+                    UIHelper.getByName<UIInput>(gameObject, "port_").value = "23333";
+                    Config.Set("serversPicker", "[OCG]23333 Pre");
 
                     inputIP_.enabled = true;
                     inputPort_.enabled = false;
@@ -158,6 +169,16 @@ public class SelectServer : WindowServantSP
                     UIHelper.getByName<UIInput>(gameObject, "ip_").value = "koishi.moecube.com";
                     UIHelper.getByName<UIInput>(gameObject, "port_").value = "2005";
                     Config.Set("serversPicker", "[GOAT]YGOPro Goat");
+
+                    inputIP_.enabled = false;
+                    inputPort_.enabled = false;
+                    break;
+                }
+            case "[DIY]YGOPro 222DIY":
+                {
+                    UIHelper.getByName<UIInput>(gameObject, "ip_").value = "ayane.mycard.moe";
+                    UIHelper.getByName<UIInput>(gameObject, "port_").value = "222";
+                    Config.Set("serversPicker", "[DIY]YGOPro 222DIY");
 
                     inputIP_.enabled = false;
                     inputPort_.enabled = false;
