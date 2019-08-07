@@ -46,8 +46,12 @@ namespace YGOSharp
                 }
             }
             if(!test) {
-                foreach (var item in new_list) {
-                    Banlists.Add(item);
+                if (Banlists == null) {
+                    Banlists = new_list;
+                } else { 
+                    foreach (var item in new_list) {
+                        Banlists.Add(item);
+                    }
                 }
             }
             return (success && new_list.Count > 1);
