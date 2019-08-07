@@ -363,33 +363,33 @@ public class Program : MonoBehaviour
             bool database_ok = false;
             bool string_ok = false;
             bool lflist_ok = false;
-            if (!database_ok && File.Exists("cdb/cards.cdb")) //downloaded datas
-            {
-                database_ok = YGOSharp.CardsManager.initialize("cdb/cards.cdb");
-            }
-            if (!database_ok && File.Exists("cards.cdb"))  //default datas
+            if (!database_ok && File.Exists("cards.cdb"))
             {
                 database_ok = YGOSharp.CardsManager.initialize("cards.cdb");
             }
-            if (!string_ok && File.Exists("cdb/strings.conf"))
+            if (!database_ok && File.Exists("cdb/cards.cdb"))
             {
-                string_ok = GameStringManager.initialize("cdb/strings.conf");
+                database_ok = YGOSharp.CardsManager.initialize("cdb/cards.cdb");
             }
             if (!string_ok && File.Exists("strings.conf"))
             {
                 string_ok = GameStringManager.initialize("strings.conf");
             }
+            if (!string_ok && File.Exists("cdb/strings.conf"))
+            {
+                string_ok = GameStringManager.initialize("cdb/strings.conf");
+            }
             if (File.Exists("expansions/lflist.conf")) // expansions lflist first
             {
                 YGOSharp.BanlistManager.initialize("expansions/lflist.conf");
             }
-            if (!lflist_ok && File.Exists("cdb/lflist.conf"))
-            {
-                lflist_ok = YGOSharp.BanlistManager.initialize("cdb/lflist.conf");
-            }
             if (!lflist_ok && File.Exists("lflist.conf"))
             {
                 lflist_ok = YGOSharp.BanlistManager.initialize("lflist.conf");
+            }
+            if (!lflist_ok && File.Exists("cdb/lflist.conf"))
+            {
+                lflist_ok = YGOSharp.BanlistManager.initialize("cdb/lflist.conf");
             }
 
             YGOSharp.BanlistManager.initializeComplete();
