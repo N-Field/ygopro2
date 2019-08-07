@@ -56,7 +56,7 @@ namespace YGOSharp
         public static void initializeComplete() {
             Banlist blank = new Banlist();
             blank.Name = "N/A";
-            Banlists.Add(item);
+            Banlists.Add(blank);
         }
         public static int GetIndex(uint hash)
         {
