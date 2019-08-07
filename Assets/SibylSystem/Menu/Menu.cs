@@ -12,7 +12,7 @@ public class Menu : WindowServantSP
     //GameObject screen;
     public override void initialize()
     {
-        string hint = File.ReadAllText("Documents/config/hint.conf");
+        string hint = File.ReadAllText("config/hint.conf");
         createWindow(Program.I().new_ui_menu);
         UIHelper.registEvent(gameObject, "setting_", onClickSetting);
         UIHelper.registEvent(gameObject, "deck_", onClickSelectDeck);
@@ -247,7 +247,7 @@ public class Menu : WindowServantSP
                                 Program.I().selectDeck.KF_editDeck(mats[1]);//编辑卡组
                             }
                             break;
-                        case "Documents/replay":
+                        case "replay":
                             if (mats.Length == 2)
                             {
                                 UIHelper.iniFaces();

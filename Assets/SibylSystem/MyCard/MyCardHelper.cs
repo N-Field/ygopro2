@@ -139,7 +139,7 @@ public class MyCardHelper {
 
 	private static void DownloadFaceFromUrl(string nameFace, string url)
 	{
-		string face = "Documents/textures/face/" + nameFace + ".png";
+		string face = "textures/face/" + nameFace + ".png";
 		HttpDldFile df = new HttpDldFile();
 		df.Download(url, face);
 		if (File.Exists(face))

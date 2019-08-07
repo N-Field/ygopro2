@@ -258,13 +258,13 @@ public class SelectServer : WindowServantSP
 
     void onClearPsw()
     {
-        string PswString = File.ReadAllText("Documents/config/passwords.conf");
+        string PswString = File.ReadAllText("config/passwords.conf");
         string[] lines = PswString.Replace("\r", "").Split("\n");
         for (int i = 0; i < lines.Length; i++)
         {
             list.RemoveItem(lines[i]);//清空list
         }
-        FileStream stream = new FileStream("Documents/config/passwords.conf", FileMode.Truncate, FileAccess.ReadWrite);//清空文件内容
+        FileStream stream = new FileStream("config/passwords.conf", FileMode.Truncate, FileAccess.ReadWrite);//清空文件内容
         stream.Close();
         inputPsw.value = "";
         Program.PrintToChat(InterString.Get("房间密码已清空"));
@@ -287,11 +287,11 @@ public class SelectServer : WindowServantSP
     void printFile(bool first)
     {
         list.Clear();
-        if (File.Exists("Documents/config/passwords.conf") == false)
+        if (File.Exists("config/passwords.conf") == false)
         {
-            File.Create("Documents/config/passwords.conf").Close();
+            File.Create("config/passwords.conf").Close();
         }
-        string txtString = File.ReadAllText("Documents/config/passwords.conf");
+        string txtString = File.ReadAllText("config/passwords.conf");
         string[] lines = txtString.Replace("\r", "").Split("\n");
         for (int i = 0; i < lines.Length; i++)
         {
@@ -382,7 +382,7 @@ public class SelectServer : WindowServantSP
                 {
                     all += list.items[i] + "\r\n";
                 }
-                File.WriteAllText("Documents/config/passwords.conf", all);
+                File.WriteAllText("config/passwords.conf", all);
                 printFile(false);
 				Program.I().mycard.isMatching = false;
 				(new Thread(() => { TcpHelper.join(ipString, name, portString, pswString, versionString); })).Start();

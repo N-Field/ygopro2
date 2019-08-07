@@ -258,13 +258,13 @@ public class selectReplay : WindowServantSP
         try
         {
             Percy.YRP yrp;
-            if (File.Exists("Documents/replay/" + superScrollView.selectedString))    
+            if (File.Exists("replay/" + superScrollView.selectedString))    
             {
-                yrp = getYRP(File.ReadAllBytes("Documents/replay/" + superScrollView.selectedString));
+                yrp = getYRP(File.ReadAllBytes("replay/" + superScrollView.selectedString));
             }
             else
             {
-                yrp = getYRP(getYRPbuffer("Documents/replay/" + superScrollView.selectedString + ".yrp3d"));
+                yrp = getYRP(getYRPbuffer("replay/" + superScrollView.selectedString + ".yrp3d"));
             }
             for (int i = 0; i < yrp.playerData.Count; i++)  
             {
@@ -278,7 +278,7 @@ public class selectReplay : WindowServantSP
                 {
                     value += yrp.playerData[i].extra[i2].ToString() + "\r\n";
                 }
-                string name = "Documents/deck/" + superScrollView.selectedString + "_" + (i + 1).ToString() + ".ydk";
+                string name = "deck/" + superScrollView.selectedString + "_" + (i + 1).ToString() + ".ydk";
                 File.WriteAllText(name, value);
                 RMSshow_none(InterString.Get("卡组入库：[?]", name));
             }
@@ -301,10 +301,10 @@ public class selectReplay : WindowServantSP
         }
         try
         {
-            if (File.Exists("Documents/replay/" + superScrollView.selectedString + ".yrp3d"))  
+            if (File.Exists("replay/" + superScrollView.selectedString + ".yrp3d"))  
             {
-                File.WriteAllBytes("Documents/replay/" + superScrollView.selectedString + ".yrp", getYRPbuffer("Documents/replay/" + superScrollView.selectedString + ".yrp3d"));
-                RMSshow_none(InterString.Get("录像入库：[?]", "Documents/replay/" + superScrollView.selectedString + ".yrp"));
+                File.WriteAllBytes("replay/" + superScrollView.selectedString + ".yrp", getYRPbuffer("replay/" + superScrollView.selectedString + ".yrp3d"));
+                RMSshow_none(InterString.Get("录像入库：[?]", "replay/" + superScrollView.selectedString + ".yrp"));
                 printFile();
             }
             else
@@ -327,11 +327,11 @@ public class selectReplay : WindowServantSP
             {
                 if (opYRP)
                 {
-                    System.IO.File.Move("Documents/replay/" + superScrollView.selectedString, "Documents/replay/" + result[0].value + ".yrp");
+                    System.IO.File.Move("replay/" + superScrollView.selectedString, "replay/" + result[0].value + ".yrp");
 
                 }else
                 {
-                    System.IO.File.Move("Documents/replay/" + superScrollView.selectedString + ".yrp3d", "Documents/replay/" + result[0].value + ".yrp3d");
+                    System.IO.File.Move("replay/" + superScrollView.selectedString + ".yrp3d", "replay/" + result[0].value + ".yrp3d");
 
                 }
                 printFile();
@@ -348,15 +348,15 @@ public class selectReplay : WindowServantSP
             {
                 try
                 {
-                    if (File.Exists("Documents/replay/" + superScrollView.selectedString + ".yrp3d"))
+                    if (File.Exists("replay/" + superScrollView.selectedString + ".yrp3d"))
                     {
-                        System.IO.File.Delete("Documents/replay/" + superScrollView.selectedString + ".yrp3d");
+                        System.IO.File.Delete("replay/" + superScrollView.selectedString + ".yrp3d");
                         RMSshow_none(InterString.Get("[?]已经被删除。", superScrollView.selectedString));
                         printFile();
                     }
-                    if (File.Exists("Documents/replay/" + superScrollView.selectedString))
+                    if (File.Exists("replay/" + superScrollView.selectedString))
                     {
-                        System.IO.File.Delete("Documents/replay/" + superScrollView.selectedString);
+                        System.IO.File.Delete("replay/" + superScrollView.selectedString);
                         RMSshow_none(InterString.Get("[?]已经被删除。", superScrollView.selectedString));
                         printFile();
                     }
@@ -370,7 +370,7 @@ public class selectReplay : WindowServantSP
         {
             if (result[0].value == "yes")
             {
-                FileInfo[] fileInfos = (new DirectoryInfo("Documents/replay")).GetFiles();
+                FileInfo[] fileInfos = (new DirectoryInfo("replay")).GetFiles();
                 for (int i = 0; i < fileInfos.Length; i++)
                 {
                     if (fileInfos[i].Name.Length == 21)
@@ -383,7 +383,7 @@ public class selectReplay : WindowServantSP
                                 {
                                     try
                                     {
-                                        File.Delete("Documents/replay/" + fileInfos[i].Name);
+                                        File.Delete("replay/" + fileInfos[i].Name);
                                     }
                                     catch (Exception)
                                     {
@@ -419,7 +419,7 @@ public class selectReplay : WindowServantSP
     {
         try
         {
-            if (File.Exists("Documents/replay/" + name + ".yrp3d"))
+            if (File.Exists("replay/" + name + ".yrp3d"))
             {
                 if (god)
                 {
@@ -427,12 +427,12 @@ public class selectReplay : WindowServantSP
                     if (precy != null)
                         precy.dispose();
                     precy = new PrecyOcg();
-                    var collections = TcpHelper.getPackages(precy.ygopro.getYRP3dBuffer(getYRP(getYRPbuffer("Documents/replay/" + name + ".yrp3d"))));
+                    var collections = TcpHelper.getPackages(precy.ygopro.getYRP3dBuffer(getYRP(getYRPbuffer("replay/" + name + ".yrp3d"))));
                     pushCollection(collections);
                 }
                 else
                 {
-                    var collection = TcpHelper.readPackagesInRecord("Documents/replay/" + name + ".yrp3d");
+                    var collection = TcpHelper.readPackagesInRecord("replay/" + name + ".yrp3d");
                     pushCollection(collection);
                 }
             }
@@ -440,13 +440,13 @@ public class selectReplay : WindowServantSP
             {
                 if (name.Length>4&&name.Substring(name.Length - 4, 4) == ".yrp")
                 {
-                    if (File.Exists("Documents/replay/" + name))
+                    if (File.Exists("replay/" + name))
                     {
                         RMSshow_none(InterString.Get("您正在观看旧版的录像（上帝视角），不保证稳定性。"));
                         if (precy != null)
                             precy.dispose();
                         precy = new PrecyOcg();
-                        var collections = TcpHelper.getPackages(precy.ygopro.getYRP3dBuffer(getYRP(File.ReadAllBytes("Documents/replay/" + name))));
+                        var collections = TcpHelper.getPackages(precy.ygopro.getYRP3dBuffer(getYRP(File.ReadAllBytes("replay/" + name))));
                         pushCollection(collections);
                     }
                 }
@@ -486,7 +486,7 @@ public class selectReplay : WindowServantSP
     void printFile()
     {
         superScrollView.clear();
-        FileInfo[] fileInfos = (new DirectoryInfo("Documents/replay")).GetFiles();
+        FileInfo[] fileInfos = (new DirectoryInfo("replay")).GetFiles();
         if (Config.Get(sort, "1") == "1")
         {
             Array.Sort(fileInfos, UIHelper.CompareTime);

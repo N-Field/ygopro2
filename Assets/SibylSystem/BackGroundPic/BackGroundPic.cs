@@ -7,7 +7,7 @@ public class BackGroundPic : Servant
     public override void initialize()
     {
         backGround = create(Program.I().mod_simple_ngui_background_texture, Vector3.zero, Vector3.zero, false, Program.ui_back_ground_2d);
-        FileStream file = new FileStream("Documents/textures/bg.jpg", FileMode.Open, FileAccess.Read);//YGOMobile Paths
+        FileStream file = new FileStream("textures/bg.jpg", FileMode.Open, FileAccess.Read);//YGOMobile Paths
         file.Seek(0, SeekOrigin.Begin);
         byte[] data = new byte[file.Length];
         file.Read(data, 0, (int)file.Length);

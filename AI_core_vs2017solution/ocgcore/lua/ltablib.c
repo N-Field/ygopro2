@@ -429,7 +429,7 @@ static const luaL_Reg tab_funcs[] = {
   {"maxn", maxn},
 #endif
   {"insert", tinsert},
-  {"Documents/pack", pack},
+  {"pack", pack},
   {"unpack", unpack},
   {"remove", tremove},
   {"move", tmove},
@@ -447,3 +447,4 @@ LUAMOD_API int luaopen_table (lua_State *L) {
 #endif
   return 1;
 }
+

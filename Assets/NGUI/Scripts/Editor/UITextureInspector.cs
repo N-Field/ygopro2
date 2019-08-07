@@ -33,7 +33,7 @@ public class UITextureInspector : UIBasicSpriteEditor
             startPath = sp2.stringValue;
             if (startPath != "")
             {
-                mTex.mainTexture = UIHelper.getTexture2D("Documents/textures/ui/" + startPath + ".png");//YGOMobile Paths
+                mTex.mainTexture = UIHelper.getTexture2D("textures/ui/" + startPath + ".png");//YGOMobile Paths
             }
             Debug.Log("force delay read");
         }

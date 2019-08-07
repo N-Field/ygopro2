@@ -787,7 +787,7 @@ public static class UIHelper
     {
         try
         {
-            FileInfo[] fileInfos = (new DirectoryInfo("Documents/textures/face")).GetFiles();//YGOMobile Paths
+            FileInfo[] fileInfos = (new DirectoryInfo("textures/face")).GetFiles();//YGOMobile Paths
             for (int i = 0; i < fileInfos.Length; i++)
             {
                 if (fileInfos[i].Name.Length > 4)
@@ -799,7 +799,7 @@ public static class UIHelper
                         {
                             try
                             {
-                                faces.Add(name, UIHelper.getTexture2D("Documents/textures/face/" + fileInfos[i].Name));//YGOMobile Paths
+                                faces.Add(name, UIHelper.getTexture2D("textures/face/" + fileInfos[i].Name));//YGOMobile Paths
                             }
                             catch (Exception e)
                             {
@@ -1000,14 +1000,14 @@ public static class UIHelper
         {
             return;
         }
-        string path = "Documents/sound/" + p + ".mp3";
+        string path = "sound/" + p + ".mp3";
         if (File.Exists(path) == false)
         {
-            path = "Documents/sound/" + p + ".wav";
+            path = "sound/" + p + ".wav";
         }
         if (File.Exists(path) == false)
         {
-            path = "Documents/sound/" + p + ".ogg";
+            path = "sound/" + p + ".ogg";
         }
         if (File.Exists(path) == false)
         {
