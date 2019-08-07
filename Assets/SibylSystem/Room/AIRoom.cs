@@ -66,14 +66,14 @@ public class AIRoom : WindowServantSP
         {
             aideck = "ai/ydk/" + Config.Get("list_aideck", suiji) + ".ydk";
         }
-        launch("deck/" + Config.Get("deckInUse", "miaowu") + ".ydk", aideck, "ai/" + Config.Get("list_airank", "ai") + ".lua", UIHelper.getByName<UIToggle>(gameObject, "first_").value, UIHelper.getByName<UIToggle>(gameObject, "unrand_").value, l, UIHelper.getByName<UIToggle>(gameObject, "god_").value, UIHelper.getByName<UIToggle>(gameObject, "mr4_").value ? 4 : 3);
+        launch("Documents/deck/" + Config.Get("deckInUse", "miaowu") + ".ydk", aideck, "ai/" + Config.Get("list_airank", "ai") + ".lua", UIHelper.getByName<UIToggle>(gameObject, "first_").value, UIHelper.getByName<UIToggle>(gameObject, "unrand_").value, l, UIHelper.getByName<UIToggle>(gameObject, "god_").value, UIHelper.getByName<UIToggle>(gameObject, "mr4_").value ? 4 : 3);
     }
 
     void printFile()
     {
         string deckInUse = Config.Get("deckInUse","miaowu");
         superScrollView.clear();
-        FileInfo[] fileInfos = (new DirectoryInfo("deck")).GetFiles();
+        FileInfo[] fileInfos = (new DirectoryInfo("Documents/deck")).GetFiles();
         if (Config.Get(sort,"1") == "1")
         {
             Array.Sort(fileInfos, UIHelper.CompareTime);

@@ -2716,16 +2716,16 @@ public class Ocgcore : ServantWithCardDescription
         {
             try
             {
-                if (File.Exists("replay/" + TcpHelper.lastRecordName + ".yrp3d"))
+                if (File.Exists("Documents/replay/" + TcpHelper.lastRecordName + ".yrp3d"))
                 {
                     if (TcpHelper.lastRecordName != winCaculator.input.value)
                     {
-                        if (File.Exists("replay/" + winCaculator.input.value + ".yrp3d"))
+                        if (File.Exists("Documents/replay/" + winCaculator.input.value + ".yrp3d"))
                         {
-                            File.Delete("replay/" + winCaculator.input.value + ".yrp3d");
+                            File.Delete("Documents/replay/" + winCaculator.input.value + ".yrp3d");
                         }
                     }
-                    File.Move("replay/" + TcpHelper.lastRecordName + ".yrp3d", "replay/" + winCaculator.input.value + ".yrp3d");
+                    File.Move("Documents/replay/" + TcpHelper.lastRecordName + ".yrp3d", "Documents/replay/" + winCaculator.input.value + ".yrp3d");
                 }
             }
             catch (Exception e)   
@@ -2742,13 +2742,13 @@ public class Ocgcore : ServantWithCardDescription
         {
             try
             {
-                if (File.Exists("replay/" + TcpHelper.lastRecordName + ".yrp3d"))
+                if (File.Exists("Documents/replay/" + TcpHelper.lastRecordName + ".yrp3d"))
                 {
-                    if (File.Exists("replay/" + "-lastReplay" + ".yrp3d"))
+                    if (File.Exists("Documents/replay/" + "-lastReplay" + ".yrp3d"))
                     {
-                        File.Delete("replay/" + "-lastReplay" + ".yrp3d");
+                        File.Delete("Documents/replay/" + "-lastReplay" + ".yrp3d");
                     }
-                    File.Move("replay/" + TcpHelper.lastRecordName + ".yrp3d", "replay/-lastReplay.yrp3d");
+                    File.Move("Documents/replay/" + TcpHelper.lastRecordName + ".yrp3d", "Documents/replay/-lastReplay.yrp3d");
                 }
             }
             catch (Exception e)

@@ -799,7 +799,7 @@ public class Servant
     public void DownloadFace()
     {
         string url = "http://q1.qlogo.cn/headimg_dl?dst_uin=" + inputUrl.value + "&spec=100";
-        string face = "textures/face/" + nameFace + ".jpg";
+        string face = "Documents/textures/face/" + nameFace + ".jpg";
         //开始下载
         HttpDldFile df = new HttpDldFile();
         if (inputUrl.value.Length >= 4 && inputUrl.value.Substring(0, 4) == "http")

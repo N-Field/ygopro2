@@ -313,8 +313,8 @@ public class Program : MonoBehaviour
             //File.Create(ANDROID_GAME_PATH + ".nomedia");
         }
 
-        if (!File.Exists(ANDROID_GAME_PATH + "updates/ui.txt") || !File.Exists(ANDROID_GAME_PATH + "textures/ui/bg_of_right_game_buttons.png")
-        || !File.Exists(ANDROID_GAME_PATH + "textures/ui/bg_of_right_card_searcher2.png"))
+        if (!File.Exists(ANDROID_GAME_PATH + "updates/ui.txt") || !File.Exists(ANDROID_GAME_PATH + "Documents/textures/ui/bg_of_right_game_buttons.png")
+        || !File.Exists(ANDROID_GAME_PATH + "Documents/textures/ui/bg_of_right_card_searcher2.png"))
         {
             string filePath = Application.streamingAssetsPath + "/ui.zip";
             var www = new WWW(filePath);
@@ -357,73 +357,73 @@ public class Program : MonoBehaviour
         });
         go(300, () =>
         {
-            InterString.initialize("config/translation.conf");
+            InterString.initialize("Documents/config/translation.conf");
             GameTextureManager.initialize();
-            Config.initialize("config/config.conf");
+            Config.initialize("Documents/config/config.conf");
             bool database_ok = false;
             bool string_ok = false;
             bool lflist_ok = false;
-            if (!database_ok && File.Exists("cdb/cards.cdb")) //downloaded datas
+            /*if (!database_ok && File.Exists("cdb/cards.cdb")) //downloaded datas
             {
                 database_ok = YGOSharp.CardsManager.initialize("cdb/cards.cdb");
-            }
-            if (!database_ok && File.Exists("cards.cdb"))  //default datas
+            } */
+            if (!database_ok && File.Exists("Documents/cards.cdb"))  //default datas
             {
-                database_ok = YGOSharp.CardsManager.initialize("cards.cdb");
+                database_ok = YGOSharp.CardsManager.initialize("Documents/cards.cdb");
             }
-            if (!string_ok && File.Exists("cdb/strings.conf"))
+            /*if (!string_ok && File.Exists("cdb/strings.conf"))
             {
                 string_ok = GameStringManager.initialize("cdb/strings.conf");
-            }
-            if (!string_ok && File.Exists("strings.conf"))
+            }*/
+            if (!string_ok && File.Exists("Documents/strings.conf"))
             {
-                string_ok = GameStringManager.initialize("strings.conf");
+                string_ok = GameStringManager.initialize("Documents/strings.conf");
             }
-            if (File.Exists("expansions/lflist.conf")) // expansions lflist first
+            if (File.Exists("Documents/expansions/lflist.conf")) // expansions lflist first
             {
-                YGOSharp.BanlistManager.initialize("expansions/lflist.conf");
+                YGOSharp.BanlistManager.initialize("Documents/expansions/lflist.conf");
             }
-            if (!lflist_ok && File.Exists("cdb/lflist.conf"))
+            /*if (!lflist_ok && File.Exists("cdb/lflist.conf"))
             {
                 lflist_ok = YGOSharp.BanlistManager.initialize("cdb/lflist.conf");
-            }
-            if (!lflist_ok && File.Exists("lflist.conf"))
+            }*/
+            if (!lflist_ok && File.Exists("Documents/lflist.conf"))
             {
-                lflist_ok = YGOSharp.BanlistManager.initialize("lflist.conf");
+                lflist_ok = YGOSharp.BanlistManager.initialize("Documents/lflist.conf");
             }
 
             YGOSharp.BanlistManager.initializeComplete();
 
-            if (File.Exists("expansions/strings.conf"))
+            if (File.Exists("Documents/expansions/strings.conf"))
             {
-                GameStringManager.initialize("expansions/strings.conf");
+                GameStringManager.initialize("Documents/expansions/strings.conf");
             }
 
-            if (Directory.Exists("expansions"))
+            if (Directory.Exists("Documents/expansions"))
             {
-                FileInfo[] fileInfos = (new DirectoryInfo("expansions")).GetFiles().OrderByDescending(x => x.Name).ToArray();
+                FileInfo[] fileInfos = (new DirectoryInfo("Documents/expansions")).GetFiles().OrderByDescending(x => x.Name).ToArray();
                 for (int i = 0; i < fileInfos.Length; i++)
                 {
                     if (fileInfos[i].Name.Length > 4)
                     {
                         if (fileInfos[i].Name.Substring(fileInfos[i].Name.Length - 4, 4) == ".cdb")
                         {
-                            YGOSharp.CardsManager.initialize("expansions/" + fileInfos[i].Name);
+                            YGOSharp.CardsManager.initialize("Documents/expansions/" + fileInfos[i].Name);
                         }
                     }
                 }
             }
 
-            if (Directory.Exists("pack"))
+            if (Directory.Exists("Documents/pack"))
             {
-                FileInfo[] fileInfos = (new DirectoryInfo("pack")).GetFiles();
+                FileInfo[] fileInfos = (new DirectoryInfo("Documents/pack")).GetFiles();
                 for (int i = 0; i < fileInfos.Length; i++)
                 {
                     if (fileInfos[i].Name.Length > 3)
                     {
                         if (fileInfos[i].Name.Substring(fileInfos[i].Name.Length - 3, 3) == ".db")
                         {
-                            YGOSharp.PacksManager.initialize("pack/" + fileInfos[i].Name);
+                            YGOSharp.PacksManager.initialize("Documents/pack/" + fileInfos[i].Name);
                         }
                     }
                 }
@@ -438,8 +438,8 @@ public class Program : MonoBehaviour
 #if !UNITY_EDITOR && UNITY_ANDROID //Android Java Test
             if (!File.Exists("updates/image_0.1.txt"))//用于检查更新
             {
-                if (File.Exists("pics.zip")) {
-                    jo.Call("doExtractZipFile", "pics.zip", ANDROID_GAME_PATH);
+                if (File.Exists("Documents/pics.zip")) {
+                    jo.Call("doExtractZipFile", "Documents/pics.zip", ANDROID_GAME_PATH);
                     File.Copy("updates/ver_1.034.9.txt", "updates/image_0.1.txt", true);
                 } else {
                     jo.Call("doDownloadZipFile", "https://github.com/Unicorn369/closeup_mobile/releases/download/0.1/pics.zip");

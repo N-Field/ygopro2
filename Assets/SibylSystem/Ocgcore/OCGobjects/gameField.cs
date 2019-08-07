@@ -131,9 +131,9 @@ public class GameField : OCGobject
 
     public void loadOldField()
     {
-        if (File.Exists("textures/field2.png"))//YGOMobile Paths
+        if (File.Exists("Documents/textures/field2.png"))//YGOMobile Paths
         {
-            Texture2D textureField = UIHelper.getTexture2D("textures/field2.png");//YGOMobile Paths
+            Texture2D textureField = UIHelper.getTexture2D("Documents/textures/field2.png");//YGOMobile Paths
             Texture2D[] textureFieldSliced = UIHelper.sliceField(textureField);
             leftT.mainTexture = textureFieldSliced[0];
             midT.mainTexture = textureFieldSliced[1];
@@ -151,9 +151,9 @@ public class GameField : OCGobject
 
     public void loadNewField()
     {
-        if (File.Exists("textures/field3.png"))//YGOMobile Paths
+        if (File.Exists("Documents/textures/field3.png"))//YGOMobile Paths
         {
-            Texture2D textureField = UIHelper.getTexture2D("textures/field3.png");//YGOMobile Paths
+            Texture2D textureField = UIHelper.getTexture2D("Documents/textures/field3.png");//YGOMobile Paths
             Texture2D[] textureFieldSliced = UIHelper.sliceField(textureField);
             leftT.mainTexture = textureFieldSliced[0];
             midT.mainTexture = textureFieldSliced[1];
@@ -424,29 +424,29 @@ public class GameField : OCGobject
                     if (code > 0)
                     {
                         Texture2D tex = null;
-                        if (File.Exists("picture/field/" + code.ToString() + ".png"))
+                        if (File.Exists("Documents/picture/field/" + code.ToString() + ".png"))
                         {
-                            tex = UIHelper.getTexture2D("picture/field/" + code.ToString() + ".png");
+                            tex = UIHelper.getTexture2D("Documents/picture/field/" + code.ToString() + ".png");
                         }
-                        else if (File.Exists("expansions/pics/field/" + code.ToString() + ".png"))
+                        else if (File.Exists("Documents/expansions/pics/field/" + code.ToString() + ".png"))
                         {
-                            tex = UIHelper.getTexture2D("expansions/pics/field/" + code.ToString() + ".png");
+                            tex = UIHelper.getTexture2D("Documents/expansions/pics/field/" + code.ToString() + ".png");
                         }
-                        else if (File.Exists("pics/field/" + code.ToString() + ".png"))
+                        else if (File.Exists("Documents/pics/field/" + code.ToString() + ".png"))
                         {
-                            tex = UIHelper.getTexture2D("pics/field/" + code.ToString() + ".png");
+                            tex = UIHelper.getTexture2D("Documents/pics/field/" + code.ToString() + ".png");
                         }
-                        else if (File.Exists("picture/field/" + code.ToString() + ".jpg"))
+                        else if (File.Exists("Documents/picture/field/" + code.ToString() + ".jpg"))
                         {
-                            tex = UIHelper.getTexture2D("picture/field/" + code.ToString() + ".jpg");
+                            tex = UIHelper.getTexture2D("Documents/picture/field/" + code.ToString() + ".jpg");
                         }
-                        else if (File.Exists("expansions/pics/field/" + code.ToString() + ".jpg"))
+                        else if (File.Exists("Documents/expansions/pics/field/" + code.ToString() + ".jpg"))
                         {
-                            tex = UIHelper.getTexture2D("expansions/pics/field/" + code.ToString() + ".jpg");
+                            tex = UIHelper.getTexture2D("Documents/expansions/pics/field/" + code.ToString() + ".jpg");
                         }
                         else
                         {
-                            tex = UIHelper.getTexture2D("pics/field/" + code.ToString() + ".jpg");
+                            tex = UIHelper.getTexture2D("Documents/pics/field/" + code.ToString() + ".jpg");
                         }
                         if (tex != null)
                         {

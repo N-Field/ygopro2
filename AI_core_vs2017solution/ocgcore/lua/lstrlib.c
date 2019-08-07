@@ -1554,7 +1554,7 @@ static const luaL_Reg strlib[] = {
   {"reverse", str_reverse},
   {"sub", str_sub},
   {"upper", str_upper},
-  {"pack", str_pack},
+  {"Documents/pack", str_pack},
   {"packsize", str_packsize},
   {"unpack", str_unpack},
   {NULL, NULL}
@@ -1581,4 +1581,3 @@ LUAMOD_API int luaopen_string (lua_State *L) {
   createmetatable(L);
   return 1;
 }
-
