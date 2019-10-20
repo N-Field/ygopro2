@@ -431,7 +431,7 @@ public class Program : MonoBehaviour
             }
 
             initializeALLservants();
-            if(GameTextureManager.AutoPicDownload)
+            if(Config.Get("autoPicDownload_", "1") != "0")
                 (new Thread(()=>{UpdateClient();})).Start();
             loadResources();
 
@@ -520,6 +520,7 @@ public class Program : MonoBehaviour
     {
         try
         {
+            PrintToChat(InterString.Get("开始更新卡片数据。"));
             if(!Directory.Exists("cdb")) {
                 Directory.CreateDirectory("cdb");
             }
@@ -556,7 +557,7 @@ public class Program : MonoBehaviour
             {
                 PrintToChat(InterString.Get("字段信息文件更新失败。"));
             }
-            PrintToChat(InterString.Get("卡片数据更新完毕。"));
+            PrintToChat(InterString.Get("卡片数据更新完毕，重启游戏生效。"));
         }
         catch (Exception e)
         {
