@@ -134,16 +134,6 @@ public class SelectServer : WindowServantSP
                     inputPort_.enabled = false;
                     break;
                 }
-             case "[DIY]YGOPro 222DIY":
-                {
-                    UIHelper.getByName<UIInput>(gameObject, "ip_").value = "222diy.momobako.com";
-                    UIHelper.getByName<UIInput>(gameObject, "port_").value = "222";
-                    Config.Set("serversPicker", "[DIY]YGOPro 222DIY");
-
-                    inputIP_.enabled = false;
-                    inputPort_.enabled = false;
-                    break;
-                }
              case "[AI]Doom Bots of Doom":
                 {
                     UIHelper.getByName<UIInput>(gameObject, "ip_").value = "koishi.momobako.com";
