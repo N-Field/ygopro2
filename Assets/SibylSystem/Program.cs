@@ -431,7 +431,7 @@ public class Program : MonoBehaviour
             }
 
             initializeALLservants();
-            if(Config.Get("autoPicDownload_", "1") != "0")
+            if(UIHelper.fromStringToBool(Config.Get("*AutoPicDownload", "1")))
                 (new Thread(()=>{UpdateClient();})).Start();
             loadResources();
 
