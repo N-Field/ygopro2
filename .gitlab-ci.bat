@@ -13,4 +13,4 @@ cd output
 7z a -mx9 ../dist/KoishiPro2-src.7z *
 cd ..
 
-aws s3 --endpoint=https://minio.mycard.moe:9000 cp dist/KoishiPro2-src.7z s3://mycard/download/
+aws s3 --endpoint=https://minio.mycard.moe:9000 sync dist s3://mycard/koishipro2
