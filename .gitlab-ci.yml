@@ -6,7 +6,7 @@ variables:
 
 ios:
   stage: build
-  script: cmd /C gitlab-ci/build.bat
+  script: cmd /C .gitlab-ci.bat
   only:
     - Android
   tags:
