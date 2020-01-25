@@ -6,7 +6,7 @@ mkdir output
 %UNITY_PATH% -batchmode -nographics -silent-crashes -projectPath %cd% -logFile build.log -executeMethod BuildHelper.Build -quit
 cat build.log
 
-sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' output/Info.plist
+bash -c "sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' output/Info.plist"
 
 mkdir dist
 cd output
