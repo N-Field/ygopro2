@@ -138,7 +138,7 @@ public class SelectServer : WindowServantSP
             case "[随机卡组]决斗编年史":
                 {
                     UIHelper.getByName<UIInput>(gameObject, "ip_").value = "neko.momobako.com";
-                    UIHelper.getByName<UIInput>(gameObject, "port_").value = "23333";
+                    UIHelper.getByName<UIInput>(gameObject, "port_").value = "23331";
                     Config.Set("serversPicker", "[随机卡组]决斗编年史");
 
                     inputIP_.enabled = false;
