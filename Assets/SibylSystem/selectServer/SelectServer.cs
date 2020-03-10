@@ -135,7 +135,7 @@ public class SelectServer : WindowServantSP
                     inputPort_.enabled = false;
                     break;
                 }
-            case "[GOAT]YGOPro Goat":
+            case "[随机卡组]决斗编年史":
                 {
                     UIHelper.getByName<UIInput>(gameObject, "ip_").value = "neko.momobako.com";
                     UIHelper.getByName<UIInput>(gameObject, "port_").value = "23333";
