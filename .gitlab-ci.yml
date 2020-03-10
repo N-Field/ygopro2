@@ -1,0 +1,13 @@
+stages:
+  - build
+  
+variables:
+  GIT_DEPTH: "1"
+
+ios:
+  stage: build
+  script: cmd /C .gitlab-ci.bat
+  only:
+    - Android
+  tags:
+    - unity
