@@ -12,9 +12,9 @@ cache:
 ios:
   stage: build
   script: cmd /C .gitlab-ci.bat
-  artifacts:
-    paths:
-      - dist/
+  #artifacts:
+  #  paths:
+  #    - dist/
 
   only:
     - Android
