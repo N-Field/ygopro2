@@ -3,12 +3,12 @@
 set UNITY_PATH="C:\Program Files\Unity\Editor\Unity.exe"
 
 mkdir output
-%UNITY_PATH% -batchmode -nographics -silent-crashes -projectPath %cd% -logFile build.log -executeMethod BuildHelper.Build -quit
+mkdir dist
+%UNITY_PATH% -batchmode -nographics -silent-crashes -projectPath %cd% -logFile dist/build.log -executeMethod BuildHelper.Build -quit
 cat build.log
 
 bash -c "sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' output/Info.plist"
 
-mkdir dist
 cd output
 7z a -mx9 ../dist/KoishiPro2-src.7z *
 cd ..
