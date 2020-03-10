@@ -4,6 +4,11 @@ stages:
 variables:
   GIT_DEPTH: "1"
 
+cache:
+  paths:
+    - Library/
+    - Temp/
+
 ios:
   stage: build
   script: cmd /C .gitlab-ci.bat
