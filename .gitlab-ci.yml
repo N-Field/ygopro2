@@ -7,6 +7,10 @@ variables:
 ios:
   stage: build
   script: cmd /C .gitlab-ci.bat
+  artifacts:
+    paths:
+      - dist/
+
   only:
     - Android
   tags:
