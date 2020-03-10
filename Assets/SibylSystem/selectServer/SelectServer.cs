@@ -53,6 +53,7 @@ public class SelectServer : WindowServantSP
         serversList.items.Add("[OCG]23333 Pre");
         serversList.items.Add("[TCG]Koishi");
         serversList.items.Add("[轮抽服]2Pick");
+        serversList.items.Add("[随机卡组]决斗编年史");
         serversList.items.Add("[DL]高速决斗");
         serversList.items.Add("[GOAT]YGOPro Goat");
         serversList.items.Add("[DIY]YGOPro 222DIY");
@@ -129,6 +130,16 @@ public class SelectServer : WindowServantSP
                     UIHelper.getByName<UIInput>(gameObject, "ip_").value = "2pick.mycard.moe";
                     UIHelper.getByName<UIInput>(gameObject, "port_").value = "765";
                     Config.Set("serversPicker", "[轮抽服]2Pick");
+
+                    inputIP_.enabled = false;
+                    inputPort_.enabled = false;
+                    break;
+                }
+            case "[GOAT]YGOPro Goat":
+                {
+                    UIHelper.getByName<UIInput>(gameObject, "ip_").value = "neko.momobako.com";
+                    UIHelper.getByName<UIInput>(gameObject, "port_").value = "23333";
+                    Config.Set("serversPicker", "[随机卡组]决斗编年史");
 
                     inputIP_.enabled = false;
                     inputPort_.enabled = false;
