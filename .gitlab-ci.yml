@@ -1,5 +1,6 @@
 stages:
   - build
+  - deploy
   
 variables:
   GIT_DEPTH: "1"
@@ -9,14 +10,26 @@ cache:
     - Library/
     - Temp/
 
-ios:
+unity:
   stage: build
   script: cmd /C .gitlab-ci.bat
   artifacts:
     paths:
-      - dist/
-
+      - KoishiPro2-src/
   only:
     - Android
   tags:
     - unity
+
+upload_to_minio:
+  stage: deploy
+  dependencies:
+    - unity
+  tags: 
+    - linux
+  image: python
+  script:
+    - pip install -U awscli
+    - aws s3 --endpoint=https://minio.mycard.moe:9000 sync --delete KoishiPro2-src s3://mycard/koishipro2
+  only:
+    - Android
