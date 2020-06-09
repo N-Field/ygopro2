@@ -18,8 +18,8 @@ unity:
       - KoishiPro2-src/
   only:
     - Android
-  tags:
     - tags
+  tags:
     - unity
 
 upload_to_minio:
