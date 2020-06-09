@@ -19,6 +19,7 @@ unity:
   only:
     - Android
   tags:
+    - tags
     - unity
 
 upload_to_minio:
