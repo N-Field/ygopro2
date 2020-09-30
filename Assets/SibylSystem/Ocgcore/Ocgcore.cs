@@ -528,6 +528,11 @@ public class Ocgcore : ServantWithCardDescription
         }
         if (condition == Condition.duel)
         {
+            if (cantCheckGrave)
+            {
+                RMSshow_none(InterString.Get("不能确认墓地里的卡，无法跨越时间线！"));
+                return;
+            }
             if (gameInfo.amIdanger())
             {
                 RMSshow_none(InterString.Get("您的时间不足无法使用ReadingSteiner！"));
@@ -712,6 +717,11 @@ public class Ocgcore : ServantWithCardDescription
 
     void on_stop()
     {
+        if (cantCheckGrave)
+        {
+            RMSshow_none(InterString.Get("不能确认墓地里的卡，无法跨越时间线！"));
+            return;
+        }
         if (paused == false)
         {
             destroy(waitObject, 0, false, true);
@@ -1228,6 +1238,7 @@ public class Ocgcore : ServantWithCardDescription
     }
     autoForceChainHandlerType autoForceChainHandler = autoForceChainHandlerType.manDoAll;
     bool deckReserved = false;
+    public bool cantCheckGrave = false;
     public int turns = 0;
     public List<string> confirmedCards = new List<string>();
     void logicalizeMessage(Package p)
@@ -1282,6 +1293,7 @@ public class Ocgcore : ServantWithCardDescription
                 break;
             case GameMessage.Win:
                 deckReserved = false;
+                cantCheckGrave = false;
                 player = localPlayer(r.ReadByte());
                 int winType = r.ReadByte();
                 keys.Insert(0, currentMessageIndex);
@@ -1329,6 +1341,7 @@ public class Ocgcore : ServantWithCardDescription
                 Program.I().room.joinWithReconnect = false;
                 turns = 0;
                 deckReserved = false;
+                cantCheckGrave = false;
                 keys.Insert(0, currentMessageIndex);
                 RMSshow_clear();
                 md5Maker = 0;
@@ -2031,6 +2044,10 @@ public class Ocgcore : ServantWithCardDescription
                 int ptype = r.ReadByte();
                 int pvalue = r.ReadInt32();
                 string valstring = GameStringManager.get(pvalue);
+                if (pvalue == 38723936)
+                {
+                    valstring = InterString.Get("不能确认墓地里的卡");
+                }
                 if (ptype == 6)
                 {
                     if (controller==0)  
@@ -5310,6 +5327,21 @@ public class Ocgcore : ServantWithCardDescription
                 int ptype = r.ReadByte();
                 int pvalue = r.ReadInt32();
                 string valstring = GameStringManager.get(pvalue);
+                if (pvalue == 38723936)
+                {
+                    valstring = InterString.Get("不能确认墓地里的卡");
+                    if (player == 0)
+                    {
+                        if (ptype == 6)
+                        {
+                            clearAllShowed();
+                            Program.I().cardDescription.setData(YGOSharp.CardsManager.Get(38723936), GameTextureManager.opBack, "", true);
+                            cantCheckGrave = true;
+                        }
+                        if (ptype == 7)
+                            cantCheckGrave = false;
+                    }
+                }
                 if (ptype == 6)
                 {
                     if (player == 0)
@@ -8169,6 +8201,7 @@ public class Ocgcore : ServantWithCardDescription
             }
         }
         deckReserved = false;
+        cantCheckGrave = false;
         surrended = false;
         Program.I().room.duelEnded = false;
         gameInfo.swaped = false;
@@ -8193,6 +8226,7 @@ public class Ocgcore : ServantWithCardDescription
         cardsForConfirm.Clear();
         logicalClearChain();
         deckReserved = false;
+        cantCheckGrave = false;
         if (isShowed)
         {
             clearResponse();
@@ -8977,7 +9011,10 @@ public class Ocgcore : ServantWithCardDescription
     {
         if (Program.I().setting.setting.spyer.value)
         {
-            Program.I().cardDescription.shiftCardShower(false);
+            if (cantCheckGrave)
+                RMSshow_none(InterString.Get("不能确认墓地里的卡，监控全局卡片功能暂停使用。"));
+            else
+                Program.I().cardDescription.shiftCardShower(false);
         }
         if (gameInfo.queryHashedButton("hide_all_card") == true)
         {
