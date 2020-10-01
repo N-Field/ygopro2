@@ -212,6 +212,7 @@ namespace Percy
         public int Defense;
         public int LScale;
         public int RScale;
+        public int LinkMarker;
     }
     unsafe static class dll
     {
@@ -515,12 +516,12 @@ namespace Percy
             for (int i = deck_player.Main.Count - 1; i >= 0; i--)
             {
                dll.new_card(duel, (uint)deck_player.Main[i],
-                    (byte)playerId, (byte)playerId, (byte)CardLocation.Deck, 0, 0);
+                    (byte)playerId, (byte)playerId, (byte)CardLocation.Deck, 0, (byte)CardPosition.FaceDownDefence);
             }
             for (int i = 0; i < deck_player.Extra.Count; i++)
             {
                dll.new_card(duel, (uint)deck_player.Extra[i],
-                    (byte)playerId, (byte)playerId, (byte)CardLocation.Extra, 0, 0);
+                    (byte)playerId, (byte)playerId, (byte)CardLocation.Extra, 0, (byte)CardPosition.FaceDownDefence);
             }
         }
 
@@ -543,7 +544,8 @@ namespace Percy
             yrp3dbuilder = new BinaryWriter(stream);
             sendToPlayer(yrp.getNamePacket());
             dll.end_duel(duel);
-            duel = dll.create_duel(yrp.Seed);
+            Meisui.Random.MersenneTwister mtrnd = new Meisui.Random.MersenneTwister(yrp.Seed);
+            duel = dll.create_duel(mtrnd.genrand_Int32());
             godMode = true;
             isFirst = true;
             dll.set_player_info(duel, 0, yrp.StartLp, yrp.StartHand, yrp.DrawCount);
@@ -552,11 +554,11 @@ namespace Percy
             {
                 foreach (var item in yrp.playerData[0].main)
                 {
-                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Deck, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Deck, 0, (byte)CardPosition.FaceDownDefence);
                 }
                 foreach (var item in yrp.playerData[0].extra)
                 {
-                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Extra, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Extra, 0, (byte)CardPosition.FaceDownDefence);
                 }
                 foreach (var item in yrp.playerData[1].main)
                 {
@@ -569,11 +571,11 @@ namespace Percy
 
                 foreach (var item in yrp.playerData[2].main)
                 {
-                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Deck, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Deck, 0, (byte)CardPosition.FaceDownDefence);
                 }
                 foreach (var item in yrp.playerData[2].extra)
                 {
-                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Extra, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Extra, 0, (byte)CardPosition.FaceDownDefence);
                 }
                 foreach (var item in yrp.playerData[3].main)
                 {
@@ -588,25 +590,26 @@ namespace Percy
             {
                 foreach (var item in yrp.playerData[0].main)
                 {
-                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Deck, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Deck, 0, (byte)CardPosition.FaceDownDefence);
                 }
                 foreach (var item in yrp.playerData[0].extra)
                 {
-                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Extra, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)0, (byte)0, (byte)CardLocation.Extra, 0, (byte)CardPosition.FaceDownDefence);
                 }
 
                 foreach (var item in yrp.playerData[1].main)
                 {
-                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Deck, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Deck, 0, (byte)CardPosition.FaceDownDefence);
                 }
                 foreach (var item in yrp.playerData[1].extra)
                 {
-                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Extra, 0, 0);
+                    dll.new_card(duel, (uint)item, (byte)1, (byte)1, (byte)CardLocation.Extra, 0, (byte)CardPosition.FaceDownDefence);
                 }
             }
             BinaryMaster master = new BinaryMaster();
             master.writer.Write((char)GameMessage.Start);
             master.writer.Write((byte)0);
+            master.writer.Write((byte)(yrp.opt >> 16));
             master.writer.Write(yrp.StartLp);
             master.writer.Write(yrp.StartLp);
             master.writer.Write((UInt16)dll.query_field_count(duel, 0, 0x1));
@@ -825,7 +828,7 @@ namespace Percy
 
             MemoryStream ms = new MemoryStream(result);
             BinaryReader reader = new BinaryReader(ms);
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 7; i++)
             {
                 int len = reader.ReadInt32();
                 if (len == 4)
@@ -1038,8 +1041,8 @@ namespace Percy
                     {
                         int code = currentReader.ReadInt32();
                         int p = currentReader.ReadByte();
-                        //currentWriter.Write(((int)(p == player ? code : 0)));
-                        //currentWriter.Write((byte)p);
+                        currentWriter.Write(((int)(p == player ? code : 0)));
+                        currentWriter.Write((byte)p);
                         move(3);
                     }
                     returnValue = true;
