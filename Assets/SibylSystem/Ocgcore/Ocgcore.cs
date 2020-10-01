@@ -5332,14 +5332,14 @@ public class Ocgcore : ServantWithCardDescription
                     valstring = InterString.Get("不能确认墓地里的卡");
                     if (player == 0)
                     {
-                        if (ptype == 6)
+                        /*if (ptype == 6) // KoishiPro2 iOS disables this
                         {
                             clearAllShowed();
                             Program.I().cardDescription.setData(YGOSharp.CardsManager.Get(38723936), GameTextureManager.opBack, "", true);
                             cantCheckGrave = true;
                         }
                         if (ptype == 7)
-                            cantCheckGrave = false;
+                            cantCheckGrave = false;*/
                     }
                 }
                 if (ptype == 6)
