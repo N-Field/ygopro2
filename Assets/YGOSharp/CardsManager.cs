@@ -152,7 +152,7 @@ namespace YGOSharp
                                                         {
                                                             if (getBAN == -233 || banlist == null || banlist.GetQuantity(card.Id) == getBAN)
                                                             {
-                                                                if (getOT == 0 || getOT == card.Ot)
+                                                                if (getOT == -233 || getOT == card.Ot)
                                                                 {
                                                                     if (getPack == "" || card.packFullName == getPack)
                                                                     {

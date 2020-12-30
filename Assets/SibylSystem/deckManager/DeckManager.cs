@@ -842,7 +842,7 @@ public class DeckManager : ServantWithCardDescription
 
     int getOT()
     {
-        int returnValue = 0;
+        int returnValue = -233;
         if (UIPopupList_ban.value == GameStringManager.get_unsafe(1240))
         {
             returnValue = 1;
