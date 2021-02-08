@@ -3995,7 +3995,7 @@ public class Ocgcore : ServantWithCardDescription
                 //TODO: can cancel
                 if (min == 0) min = 1;
                 uint _field = ~r.ReadUInt32();
-                if (Program.I().setting.setting.hand.value == true || Program.I().setting.setting.handm.value == true || (GameMessage)p.Fuction == GameMessage.SelectDisfield)
+                if (Program.I().setting.setting.hand.value == true || Program.I().setting.setting.handm.value == true || currentMessage == GameMessage.SelectDisfield)
                 {
                     ES_min = min;
                     for (int i = 0; i < min; i++)
@@ -4064,7 +4064,7 @@ public class Ocgcore : ServantWithCardDescription
                         }
                     }
 
-                    if ((GameMessage)p.Fuction == GameMessage.SelectPlace)
+                    if (currentMessage == GameMessage.SelectPlace)
                     {
                         if (Es_selectMSGHintType == 3)
                         {
