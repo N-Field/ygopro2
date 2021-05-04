@@ -818,7 +818,7 @@ public class GameTextureManager
             if (!File.Exists(path) && pic.code != 0 && AutoPicDownload)
             {
                 //YGOMobile (177x254)
-                df.Download("http://n.my-card.in/images/ygopro-images-zh-CN/" + pic.code.ToString() + ".jpg", "picture/card/" + pic.code.ToString() + ".jpg");
+                df.Download("http://cdn01.moestart.com/images/ygopro-images-zh-CN/" + pic.code.ToString() + ".jpg", "picture/card/" + pic.code.ToString() + ".jpg");
                 path = "picture/card/" + pic.code.ToString() + ".jpg";
             }
             /*if (!File.Exists(path) && pic.code != 0 && AutoPicDownload)

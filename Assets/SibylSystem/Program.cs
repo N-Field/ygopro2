@@ -338,7 +338,7 @@ public class Program : MonoBehaviour
 
 #elif UNITY_IPHONE //iPhone
         string GamePaths = Application.persistentDataPath + "/ygopro2/";
-        if (!File.Exists(GamePaths + "updates/version-1.035.2-UNFly.txt"))
+        if (!File.Exists(GamePaths + "updates/version-1.035.2-Nekoyuki.txt"))
         {
             string filePath = Application.streamingAssetsPath + "/ygopro2-data.zip";
             ExtractZipFile(System.IO.File.ReadAllBytes(filePath), GamePaths);
@@ -533,7 +533,7 @@ public class Program : MonoBehaviour
                 File.Delete("cdb/strings.conf");*/
 
             HttpDldFile httpDldFile = new HttpDldFile();
-            httpDldFile.Download("http://koishipro2dl.my-card.in/cards.cdb", "cdb/_cards.cdb");
+            httpDldFile.Download("http://koishipro2dl.moestart.com/cards.cdb", "cdb/_cards.cdb");
             if(YGOSharp.CardsManager.initialize("cdb/_cards.cdb", true)) {
                 ReplaceFile("cdb/cards.cdb", "cdb/_cards.cdb");
             }
@@ -541,7 +541,7 @@ public class Program : MonoBehaviour
             {
                 PrintToChat(InterString.Get("卡片数据库更新失败。"));
             }
-            httpDldFile.Download("http://koishipro2dl.my-card.in/lflist.conf", "cdb/_lflist.conf");
+            httpDldFile.Download("http://koishipro2dl.moestart.com/lflist.conf", "cdb/_lflist.conf");
             if(YGOSharp.BanlistManager.initialize("cdb/_lflist.conf", true)) {
                 ReplaceFile("cdb/lflist.conf","cdb/_lflist.conf");
             }
@@ -549,7 +549,7 @@ public class Program : MonoBehaviour
             {
                 PrintToChat(InterString.Get("禁止/限制卡表文件更新失败。"));
             }
-            httpDldFile.Download("http://koishipro2dl.my-card.in/strings.conf", "cdb/_strings.conf");
+            httpDldFile.Download("http://koishipro2dl.moestart.com/strings.conf", "cdb/_strings.conf");
             if(GameStringManager.initialize("cdb/_strings.conf", true)) {
                 ReplaceFile("cdb/strings.conf","cdb/_strings.conf");
             }
@@ -1116,7 +1116,7 @@ public class Program : MonoBehaviour
 
         string FPS = m_FPS.ToString();
         try { FPS = FPS.Substring(0, 5); } catch{}
-        GUI.Label(new Rect(10, 5, 200, 200), "[Ver 1.035.2-UNFly] " + "FPS: " + FPS);
+        GUI.Label(new Rect(10, 5, 200, 200), "[Ver 1.035.2-Nekoyuki] " + "FPS: " + FPS);
     }
 
     void Update()
