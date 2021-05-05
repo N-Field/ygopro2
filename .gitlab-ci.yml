@@ -17,9 +17,6 @@ unity:
   artifacts:
     paths:
       - dist/
-  only:
-    - Android
-    - tags
   tags:
     - unity
 
@@ -43,9 +40,6 @@ patch:
   artifacts:
     paths:
       - dist/
-  only:
-    - Android
-    - tags
   tags:
     - linux
 
