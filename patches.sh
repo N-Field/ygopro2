@@ -18,7 +18,8 @@ mkdir /tmp/tmp-libs
 _run_for_arch arm64 /tmp/tmp-libs/libiPhone-lib-arm64.a
 _run_for_arch armv7 /tmp/tmp-libs/libiPhone-lib-armv7.a
 _run_for_arch armv7s /tmp/tmp-libs/libiPhone-lib-armv7s.a
-lipo -create /tmp/tmp-libs/libiPhone-lib-arm64.a /tmp/tmp-libs/libiPhone-lib-armv7.a /tmp/tmp-libs/libiPhone-lib-armv7s.a -output ./Libraries/libiPhone-lib-new.a
+lipo -create /tmp/tmp-libs/libiPhone-lib-arm64.a /tmp/tmp-libs/libiPhone-lib-armv7.a /tmp/tmp-libs/libiPhone-lib-armv7s.a -output ./Libraries/libiPhone-lib-new.a && \
+	mv ./Libraries/libiPhone-lib-new.a ./Libraries/libiPhone-lib.a
 
 # patch -p1 < ./misc/patches/iPhone_Sensors.mm.patch
 # echo '#define UNITY_USES_LOCATION 0' >> ./Classes/Preprocessor.h
