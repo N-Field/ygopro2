@@ -34,7 +34,7 @@ patch:
     - cp -rf ../patches.sh .
     - cp -rf ../misc .
     - chmod +x *.sh
-    - sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' output/Info.plist
+    - sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' ./Info.plist
     - patch -p1 < ../misc/patches/iPhone_Sensors.mm.patch
     - echo '#define UNITY_USES_LOCATION 0' >> ./Classes/Preprocessor.h
     - tar zcvf ../dist/KoishiPro2-src.tar.gz * .*
