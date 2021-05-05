@@ -28,7 +28,7 @@ patch:
   dependencies:
     - unity
   script:
-    - apt update; apt -y install tar
+    - apt update; apt -y install tar patch
     - mv dist/src ./unity-src
     - cd unity-src
     - cp -rf ../patches.sh .
