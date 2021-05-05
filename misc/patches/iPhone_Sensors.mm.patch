@@ -1,0 +1,182 @@
+diff --git a/Classes/iPhone_Sensors.mm b/Classes/iPhone_Sensors.mm
+--- a/Classes/iPhone_Sensors.mm
++++ b/Classes/iPhone_Sensors.mm
+@@ -1,7 +1,9 @@
+ #define SIMULATE_ATTITUDE_FROM_GRAVITY 1
+ 
+ #import "iPhone_Sensors.h"
++#if UNITY_USES_LOCATION
+ #import <CoreLocation/CoreLocation.h>
++#endif
+ #if !UNITY_TVOS
+ #import <CoreMotion/CoreMotion.h>
+ #endif
+@@ -752,9 +754,10 @@ extern "C" void UnityGetNiceKeyname(int 
+ 
+ #pragma clang diagnostic pop
+ 
+-
++#if UNITY_USES_LOCATION
+ @interface LocationServiceDelegate : NSObject<CLLocationManagerDelegate>
+ @end
++#endif
+ 
+ void
+ UnitySetLastLocation(double timestamp,
+@@ -770,6 +773,7 @@ UnitySetLastHeading(float magneticHeadin
+     float rawX, float rawY, float rawZ,
+     double timestamp);
+ 
++#if UNITY_USES_LOCATION
+ struct LocationServiceInfo
+ {
+ private:
+@@ -795,7 +799,9 @@ LocationServiceInfo::LocationServiceInfo
+     headingStatus = kLocationServiceStopped;
+ }
+ 
++#if UNITY_USES_LOCATION
+ static LocationServiceInfo gLocationServiceStatus;
++#endif
+ 
+ CLLocationManager* LocationServiceInfo::GetLocationManager()
+ {
+@@ -810,40 +816,56 @@ CLLocationManager* LocationServiceInfo::
+     return locationManager;
+ }
+ 
++#endif
++
+ bool LocationService::IsServiceEnabledByUser()
+ {
++#if UNITY_USES_LOCATION
+     return [CLLocationManager locationServicesEnabled];
++#else
++    return false;
++#endif
+ }
+ 
+ void LocationService::SetDesiredAccuracy(float val)
+ {
++#if UNITY_USES_LOCATION
+     gLocationServiceStatus.desiredAccuracy = val;
++#endif
+ }
+ 
+ float LocationService::GetDesiredAccuracy()
+ {
++#if UNITY_USES_LOCATION
+     return gLocationServiceStatus.desiredAccuracy;
++#else
++    return NAN;
++#endif
+ }
+ 
+ void LocationService::SetDistanceFilter(float val)
+ {
++#if UNITY_USES_LOCATION
+     gLocationServiceStatus.distanceFilter = val;
++#endif
+ }
+ 
+ float LocationService::GetDistanceFilter()
+ {
++#if UNITY_USES_LOCATION
+     return gLocationServiceStatus.distanceFilter;
++#else
++    return NAN;
++#endif
+ }
+ 
+ void LocationService::StartUpdatingLocation()
+ {
++#if UNITY_USES_LOCATION
+     if (gLocationServiceStatus.locationStatus != kLocationServiceRunning)
+     {
+         CLLocationManager* locationManager = gLocationServiceStatus.GetLocationManager();
+-
+-        // request authorization on ios8
+-        if ([locationManager respondsToSelector: @selector(requestWhenInUseAuthorization)])
+-            [locationManager performSelector: @selector(requestWhenInUseAuthorization)];
++        [locationManager requestWhenInUseAuthorization];
+ 
+         locationManager.desiredAccuracy = gLocationServiceStatus.desiredAccuracy;
+         // Set a movement threshold for new events
+@@ -857,20 +879,23 @@ void LocationService::StartUpdatingLocat
+ 
+         gLocationServiceStatus.locationStatus = kLocationServiceInitializing;
+     }
++#endif
+ }
+ 
+ void LocationService::StopUpdatingLocation()
+ {
++#if UNITY_USES_LOCATION
+     if (gLocationServiceStatus.locationStatus != kLocationServiceStopped)
+     {
+         [gLocationServiceStatus.GetLocationManager() stopUpdatingLocation];
+         gLocationServiceStatus.locationStatus = kLocationServiceStopped;
+     }
++#endif
+ }
+ 
+ void LocationService::SetHeadingUpdatesEnabled(bool enabled)
+ {
+-#if UNITY_IOS
++#if UNITY_IOS && UNITY_USES_LOCATION
+     if (enabled)
+     {
+         if (gLocationServiceStatus.headingStatus != kLocationServiceRunning &&
+@@ -895,28 +920,41 @@ void LocationService::SetHeadingUpdatesE
+ 
+ bool LocationService::IsHeadingUpdatesEnabled()
+ {
++#if UNITY_USES_LOCATION
+     return (gLocationServiceStatus.headingStatus == kLocationServiceRunning);
++#else
++    return false;
++#endif
+ }
+ 
+ int UnityGetLocationStatus()
+ {
++#if UNITY_USES_LOCATION
+     return gLocationServiceStatus.locationStatus;
++#else
++    return kLocationServiceFailed;
++#endif
+ }
+ 
+ int UnityGetHeadingStatus()
+ {
++#if UNITY_USES_LOCATION
+     return gLocationServiceStatus.headingStatus;
++#else
++    return kLocationServiceFailed;
++#endif
+ }
+ 
+ bool LocationService::IsHeadingAvailable()
+ {
+-#if UNITY_TVOS
+-    return false;
+-#else
++#if PLATFORM_IOS && UNITY_USES_LOCATION
+     return [CLLocationManager headingAvailable];
++#else
++    return false;
+ #endif
+ }
+ 
++#if UNITY_USES_LOCATION
+ @implementation LocationServiceDelegate
+ 
+ - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray*)locations
+@@ -958,6 +996,7 @@ bool LocationService::IsHeadingAvailable
+ }
+ 
+ @end
++#endif
+ 
+ #if UNITY_TVOS
+ GCMicroGamepad* QueryMicroController()

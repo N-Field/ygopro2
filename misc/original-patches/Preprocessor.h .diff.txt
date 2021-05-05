@@ -1,0 +1,11 @@
+diff --git a/Classes/Preprocessor.h b/Classes/Preprocessor.h
+--- a/Classes/Preprocessor.h
++++ b/Classes/Preprocessor.h
+@@ -121,6 +121,7 @@
+ #define UNITY_USES_REPLAY_KIT 0
+ #define UNITY_SNAPSHOT_VIEW_ON_APPLICATION_PAUSE 0
+ #define UNITY_DEVELOPER_BUILD 0
++#define UNITY_USES_LOCATION 0
+ 
+ #define USE_IL2CPP_PCH 0
+ #define UNITY_SUPPORT_ROTATION PLATFORM_IOS

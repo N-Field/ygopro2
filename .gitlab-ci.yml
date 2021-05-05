@@ -1,5 +1,6 @@
 stages:
   - build
+  - patch
   - deploy
   
 variables:
@@ -15,22 +16,61 @@ unity:
   script: cmd /C .gitlab-ci.bat
   artifacts:
     paths:
-      - KoishiPro2-src/
+      - dist/
   only:
     - Android
     - tags
   tags:
     - unity
 
-upload_to_minio:
-  stage: deploy
+patch:
+  stage: patch
   dependencies:
     - unity
+  script:
+    - apt update; apt -y install tar
+    - mv dist/src ./unity-src
+    - cd unity-src
+    - cp -rf ../patches.sh .
+    - cp -rf ../misc .
+    - chmod +x *.sh
+    - sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' output/Info.plist
+    - patch -p1 < ../misc/patches/iPhone_Sensors.mm.patch
+    - echo '#define UNITY_USES_LOCATION 0' >> ./Classes/Preprocessor.h
+    - tar zcvf ../dist/KoishiPro2-src.tar.gz * .*
+    - cd ..
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - Android
+    - tags
+  tags:
+    - linux
+
+upload_to_minio_latest:
+  stage: deploy
+  dependencies:
+    - patch
   tags: 
     - linux
   image: python
   script:
     - pip install -U awscli
-    - aws s3 --endpoint=https://minio.mycard.moe:9000 sync --delete KoishiPro2-src/ s3://mycard/koishipro2/$CI_COMMIT_TAG
+    - aws s3 --endpoint=https://minio.mycard.moe:9000 sync --delete dist/ s3://mycard/koishipro2/latest
+  only:
+    - Android
+    - tags
+
+upload_to_minio_tag:
+  stage: deploy
+  dependencies:
+    - patch
+  tags: 
+    - linux
+  image: python
+  script:
+    - pip install -U awscli
+    - aws s3 --endpoint=https://minio.mycard.moe:9000 sync --delete dist/ s3://mycard/koishipro2/$CI_COMMIT_TAG
   only:
     - tags

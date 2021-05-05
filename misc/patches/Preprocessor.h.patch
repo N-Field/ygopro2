@@ -1,0 +1,11 @@
+diff --git a/Classes/Preprocessor.h b/Classes/Preprocessor.h
+--- a/Classes/Preprocessor.h
++++ b/Classes/Preprocessor.h
+@@ -100,6 +100,7 @@
+ #define UNITY_USES_WEBCAM 0
+ #define UNITY_USES_MICROPHONE 0
+ #define UNITY_USES_REPLAY_KIT 0
++#define UNITY_USES_LOCATION 0
+ #define UNITY_SNAPSHOT_VIEW_ON_APPLICATION_PAUSE 1
+ 
+ #define USE_IL2CPP_PCH 0

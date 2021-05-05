@@ -67,3 +67,6 @@ Assets/StreamingAssets/update.zip*
 commamd.shell
 
 /output
+/Classes
+/Libraries
+/URLUtility.o
