@@ -109,13 +109,12 @@ public class MyCardHelper {
 			}
 			string result = www.text;
 			matchResultObject = JsonUtility.FromJson<MatchResultObject>(result);
-			ret = result_object.password;
 		} catch (Exception e) {
 			failReason = e.Message;
 			return null;
 		}
 		failReason = null;
-		return ret;
+		return matchResultObject;
 	}
 
 	public static void DownloadFace(string name) {
