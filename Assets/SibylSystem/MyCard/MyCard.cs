@@ -76,15 +76,16 @@ public class MyCard : WindowServantSP
 
     void matchThread(string username, string password, string matchType) {
         try { 
-            Program.PrintToChat(InterString.Get("正在登录至MyCard。"));
+            Program.PrintToChat(InterString.Get("正在登录至 MyCard 。"));
             string failReason = "";
             bool res = mycardHelper.login(username, password, out failReason);
             if (!res) {
-                Program.PrintToChat(InterString.Get("MyCard登录失败。原因: ") + failReason);
+                Program.PrintToChat(InterString.Get("MyCard 登录失败。原因: ") + failReason);
                 isRequesting = false;
                 return;
             }
-            Program.PrintToChat(InterString.Get("正在请求匹配。匹配类型: ") + matchType);
+			Program.PrintToChat(InterString.Get("MyCard 登录成功，用户名: ") + mycardHelper.username);
+			Program.PrintToChat(InterString.Get("正在请求匹配。匹配类型: ") + matchType);
             MatchResultObject matchResultObject = mycardHelper.requestMatch(matchType, out failReason);
             if (matchResultObject == null) { 
                 Program.PrintToChat(InterString.Get("匹配请求失败。原因: ") + failReason);
