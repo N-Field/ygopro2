@@ -8,9 +8,9 @@ public class MyCard : WindowServantSP
 {
     public bool isMatching = false;
     public bool isRequesting = false;
-    const string mycardTiramisuAddress = "tiramisu.mycard.moe";
-    const string mycardTiramisuAthleticPort = "8911";
-    const string mycardTiramisuEntertainPort = "7911";
+    //const string mycardTiramisuAddress = "tiramisu.mycard.moe";
+    //const string mycardTiramisuAthleticPort = "8911";
+    //const string mycardTiramisuEntertainPort = "7911";
     Thread requestThread = null;
     MyCardHelper mycardHelper;
     UIInput inputUsername;
@@ -93,7 +93,7 @@ public class MyCard : WindowServantSP
                 return;
             }
             Program.PrintToChat(InterString.Get("匹配成功。正在进入房间。"));
-            Program.I().mycard.isMatching = true;
+            this.isMatching = true;
 
             (new Thread(() => { TcpHelper.join(matchResultObject.address, mycardHelper.username, matchResultObject.port.ToString(), matchResultObject.password, "0x" + String.Format("{0:X}", Config.ClientVersion)); })).Start();
             isRequesting = false;
