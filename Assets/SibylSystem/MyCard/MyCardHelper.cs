@@ -49,16 +49,16 @@ public class LoginRequest {
 }
 
 [Serializable]
-public class MatchObject {
+public class MatchResultObject {
 	public string address;
 	public int port;
 	public string password;
 }
 
 public class MyCardHelper {
-	string username = null;
+	public string username = null;
 	int userid = -1;
-	public bool login(string name, string password, out string fail_reason) {
+	public bool login(string name, string password, out string failReason) {
 		try { 
 			LoginRequest data = new LoginRequest();
 			data.account = name;
@@ -71,7 +71,7 @@ public class MyCardHelper {
 			while (!www.isDone) { 
 				if (Application.internetReachability == NetworkReachability.NotReachable || !string.IsNullOrEmpty(www.error))
 				{
-					fail_reason = www.error;
+					failReason = www.error;
 					return false;
 				}
 			}
@@ -80,17 +80,17 @@ public class MyCardHelper {
 			username = result_object.user.username;
 			userid = result_object.user.id;
 		} catch (Exception e) {
-			fail_reason = e.Message;
+			failReason = e.Message;
 			return false;
 		}
-		fail_reason = null;
+		failReason = null;
 		return true;
 	}
 
-	public string requestMatch(string match_type, out string fail_reason) {
-		string ret;
+	public MatchResultObject requestMatch(string matchType, out string failReason) {
+		MatchResultObject matchResultObject;
 		if (username == null || userid < 0) {
-			fail_reason = "Not logged in";
+			failReason = "Not logged in";
 			return null;
 		}
 		try {
@@ -99,22 +99,22 @@ public class MyCardHelper {
 			header_list.Add("Authorization", auth_str);
 			header_list.Add("Content-Type", "application/x-www-form-urlencoded");
 			byte[] meta = new byte[1];
-			WWW www = new WWW("https://api.mycard.moe/ygopro/match?locale=zh-CN&arena=" + match_type, meta, header_list);
+			WWW www = new WWW("https://api.moecube.com/ygopro/match?locale=zh-CN&arena=" + matchType, meta, header_list);
 			while (!www.isDone) { 
 				if (Application.internetReachability == NetworkReachability.NotReachable || !string.IsNullOrEmpty(www.error))
 				{
-					fail_reason = www.error;
+					failReason = www.error;
 					return null;
 				}
 			}
 			string result = www.text;
-			MatchObject result_object = JsonUtility.FromJson<MatchObject>(result);
+			matchResultObject = JsonUtility.FromJson<MatchResultObject>(result);
 			ret = result_object.password;
 		} catch (Exception e) {
-			fail_reason = e.Message;
+			failReason = e.Message;
 			return null;
 		}
-		fail_reason = null;
+		failReason = null;
 		return ret;
 	}
 

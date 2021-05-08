@@ -8,11 +8,11 @@ public class MyCard : WindowServantSP
 {
     public bool isMatching = false;
     public bool isRequesting = false;
-    const string mycard_ip = "tiramisu.mycard.moe";
-    const string athletic_port = "8911";
-    const string entertain_port = "7911";
+    const string mycardTiramisuAddress = "tiramisu.mycard.moe";
+    const string mycardTiramisuAthleticPort = "8911";
+    const string mycardTiramisuEntertainPort = "7911";
     Thread requestThread = null;
-    MyCardHelper helper;
+    MyCardHelper mycardHelper;
     UIInput inputUsername;
     UIInput inputPsw;
 
@@ -26,7 +26,7 @@ public class MyCard : WindowServantSP
         UIHelper.registEvent(gameObject, "community_", onClickCommunity);
         inputUsername = UIHelper.getByName<UIInput>(gameObject, "name_");
         inputPsw = UIHelper.getByName<UIInput>(gameObject, "psw_");
-        helper = new MyCardHelper();
+        mycardHelper = new MyCardHelper();
         loadUser();
         SetActiveFalse();
     }
@@ -74,27 +74,27 @@ public class MyCard : WindowServantSP
         Application.OpenURL("https://ygobbs.com/");
     }
 
-    void matchThread(string username, string password, string match_type) {
+    void matchThread(string username, string password, string matchType) {
         try { 
             Program.PrintToChat(InterString.Get("正在登录至MyCard。"));
-            string fail_reason = "";
-            bool res = helper.login(username, password, out fail_reason);
+            string failReason = "";
+            bool res = mycardHelper.login(username, password, out failReason);
             if (!res) {
-                Program.PrintToChat(InterString.Get("MyCard登录失败。原因: ") + fail_reason);
+                Program.PrintToChat(InterString.Get("MyCard登录失败。原因: ") + failReason);
                 isRequesting = false;
                 return;
             }
-            Program.PrintToChat(InterString.Get("正在请求匹配。匹配类型: ") + match_type);
-            string pswString = helper.requestMatch(match_type, out fail_reason);
-            if (pswString == null) { 
-                Program.PrintToChat(InterString.Get("匹配请求失败。原因: ") + fail_reason);
+            Program.PrintToChat(InterString.Get("正在请求匹配。匹配类型: ") + matchType);
+            MatchResultObject matchResultObject = mycardHelper.requestMatch(matchType, out failReason);
+            if (matchResultObject == null) { 
+                Program.PrintToChat(InterString.Get("匹配请求失败。原因: ") + failReason);
                 isRequesting = false;
                 return;
             }
             Program.PrintToChat(InterString.Get("匹配成功。正在进入房间。"));
             Program.I().mycard.isMatching = true;
 
-            (new Thread(() => { TcpHelper.join(mycard_ip, username, match_type == "athletic" ? athletic_port : entertain_port, pswString, "0x" + String.Format("{0:X}", Config.ClientVersion)); })).Start();
+            (new Thread(() => { TcpHelper.join(matchResultObject.address, mycardHelper.username, matchResultObject.port, matchResultObject.password, "0x" + String.Format("{0:X}", Config.ClientVersion)); })).Start();
             isRequesting = false;
         } catch (Exception e) {
             if (e.GetType() != typeof(ThreadAbortException)) { 
@@ -106,7 +106,7 @@ public class MyCard : WindowServantSP
         }
     }
 
-    void startMatch(string match_type) {
+    void startMatch(string matchType) {
         string username = inputUsername.value;
         string password = inputPsw.value;
         if (username == "" || password == "")
@@ -123,7 +123,7 @@ public class MyCard : WindowServantSP
         Program.PrintToChat(InterString.Get("已开始匹配。"));
         requestThread = new Thread(() =>
         {
-            matchThread(username, password, match_type);
+            matchThread(username, password, matchType);
         });
 		requestThread.Start();
 	}
