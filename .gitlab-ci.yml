@@ -1,6 +1,7 @@
 stages:
   - build
   - patch
+  - pack
   - deploy
   
 variables:
