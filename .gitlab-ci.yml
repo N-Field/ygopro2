@@ -77,7 +77,7 @@ pack:
 upload_to_minio_latest:
   stage: deploy
   dependencies:
-    - patch
+    - pack
   tags: 
     - linux
   image: python
@@ -91,7 +91,7 @@ upload_to_minio_latest:
 upload_to_minio_tag:
   stage: deploy
   dependencies:
-    - patch
+    - pack
   tags: 
     - linux
   image: python
