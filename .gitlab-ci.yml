@@ -20,7 +20,7 @@ unity:
   tags:
     - unity
 
-patch:
+patch-header:
   stage: patch
   dependencies:
     - unity
@@ -28,13 +28,43 @@ patch:
     - apt update; apt -y install tar patch
     - mv dist/src ./unity-src
     - cd unity-src
-    - cp -rf ../patches.sh .
-    - cp -rf ../misc .
     - chmod +x *.sh
     - sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' ./Info.plist
     - patch -p1 < ../misc/patches/iPhone_Sensors.mm.patch
     - echo '#define UNITY_USES_LOCATION 0' >> ./Classes/Preprocessor.h
     - sed -i 's/^#define UNITY_USES_REMOTE_NOTIFICATIONS 1/#define UNITY_USES_REMOTE_NOTIFICATIONS 0/g' ./Classes/Preprocessor.h
+    - rm -rf Libraries
+    - cd ..
+  artifacts:
+    paths:
+      - unity-src/
+  tags:
+    - linux
+
+patch-lib:
+  stage: patch
+  dependencies:
+    - unity
+  script:
+    - mkdir unity-src
+    - cd unity-src
+    - mv ../dist/src/Libraries .
+    - env MISC_PATH="../misc" ../patches.sh
+    - cd ..
+  artifacts:
+    paths:
+      - unity-src/
+  tags:
+    - macos
+
+pack:
+  stage: pack
+  dependencies:
+    - patch-header
+    - patch-lib
+  script:
+    - mkdir dist
+    - cd unity-src
     - tar zcvf ../dist/KoishiPro2-src.tar.gz *
     - cd ..
   artifacts:
