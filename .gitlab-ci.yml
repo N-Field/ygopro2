@@ -1,4 +1,6 @@
 stages:
+  - prepare1
+  - prepare2
   - build
   - patch
   - pack
@@ -11,6 +13,34 @@ cache:
   paths:
     - Library/
     - Temp/
+
+get_data:
+  stage: prepare1
+  tags:
+    - linux
+  dependencies: []
+  artifacts:
+    paths:
+      - ygopro2-data/cdb
+  script:
+    - mkdir -p ygopro2-data/cdb
+    - wget -O ygopro2-data/cdb/cards.cdb https://cdn01.moecube.com/koishipro/contents/cards.cdb
+    - wget -O ygopro2-data/cdb/lflist.conf https://cdn01.moecube.com/koishipro/contents/lflist.conf
+    - wget -O ygopro2-data/cdb/strings.conf https://cdn01.moecube.com/koishipro/contents/strings.conf
+
+make_data_archive:
+  stage: prepare2
+  tags:
+    - macos
+  dependencies:
+    - get_data
+  artifacts:
+    paths:
+      - Assets/StreamingAssets/ygopro2-data.zip
+  script:
+    - cd ygopro-data
+    - zip -r ../Assets/StreamingAssets/ygopro2-data.zip *
+    - cd ..
 
 unity:
   stage: build

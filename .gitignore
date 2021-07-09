@@ -43,18 +43,9 @@ AI_core_vs2017solution/build/android/obj/
 # ygopro
 ai/
 cdb/
-config/
-deck/
-expansions/
-pack/
-picture/
 puzzle/
-replay/
-sound/
 texture/
-textures/
 update/
-updates/
 cards.cdb
 lflist.conf
 strings.conf
@@ -70,3 +61,4 @@ commamd.shell
 /Classes
 /Libraries
 /URLUtility.o
+/ygopro2-data/cdb
