@@ -38,7 +38,7 @@ make_data_archive:
     paths:
       - Assets/StreamingAssets/ygopro2-data.zip
   script:
-    - cd ygopro-data
+    - cd ygopro2-data
     - zip -r ../Assets/StreamingAssets/ygopro2-data.zip *
     - cd ..
 
