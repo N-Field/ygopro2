@@ -45,6 +45,8 @@ make_data_archive:
 unity:
   stage: build
   script: cmd /C .gitlab-ci.bat
+  dependencies:
+    - make_data_archive
   artifacts:
     paths:
       - dist/
@@ -116,7 +118,7 @@ upload_to_minio_latest:
     - aws s3 --endpoint=https://minio.mycard.moe:9000 sync --delete dist/ s3://mycard/koishipro2/latest
   only:
     - Android
-    - tags
+    #- tags
 
 upload_to_minio_tag:
   stage: deploy
