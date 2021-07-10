@@ -1551,7 +1551,7 @@ public class DeckManager : ServantWithCardDescription
         bool res = true;
         try
         {
-            byte[] buffer = Convert.FromBase64String(base64);
+            byte[] buffer = Convert.FromBase64String(base64.Trim());
             int offset = 0;
             int mainc = BitConverter.ToInt32(buffer, offset);
             offset += 4;
