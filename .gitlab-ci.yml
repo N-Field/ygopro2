@@ -62,7 +62,7 @@ patch-header:
     - mv dist/src ./unity-src
     - cd unity-src
     - chmod +x *.sh
-    - sed -i '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' ./Info.plist
+    - sed -i -e '/>UIStatusBarStyle</i\    <key>UIFileSharingEnabled</key>\n    <true />\n    <key>LSSupportsOpeningDocumentsInPlace</key>\n    <true />' -e '/UIApplicationExitsOnSuspend/,+1d' ./Info.plist
     - patch -p1 < ../misc/patches/iPhone_Sensors.mm.patch
     - echo '#define UNITY_USES_LOCATION 0' >> ./Classes/Preprocessor.h
     - sed -i 's/^#define UNITY_USES_REMOTE_NOTIFICATIONS 1/#define UNITY_USES_REMOTE_NOTIFICATIONS 0/g' ./Classes/Preprocessor.h
@@ -112,9 +112,7 @@ upload_to_minio_latest:
     - pack
   tags: 
     - linux
-  image: python
   script:
-    - pip install -U awscli
     - aws s3 --endpoint=https://minio.mycard.moe:9000 sync --delete dist/ s3://mycard/koishipro2/latest
   only:
     - Android
@@ -126,9 +124,7 @@ upload_to_minio_tag:
     - pack
   tags: 
     - linux
-  image: python
   script:
-    - pip install -U awscli
     - aws s3 --endpoint=https://minio.mycard.moe:9000 sync --delete dist/ s3://mycard/koishipro2/$CI_COMMIT_TAG
   only:
     - tags
